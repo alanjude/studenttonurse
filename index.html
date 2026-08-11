@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student to Nurse — NCLEX-RN Prep</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    --navy:#17264A;--navy-2:#0F1B33;--navy-3:#22345E;--gold:#C7A253;--gold-light:#E4CD94;
+    --parchment:#F6F1E4;--paper:#FDFBF6;--ink:#1D2333;--ink-dim:#5B6478;--line:#DED4BC;--required:#8C3B3B;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;}
+  h1,h2,h3{font-family:'EB Garamond',serif;margin:0;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+  .cap{text-transform:uppercase;letter-spacing:1.6px;font-size:0.72rem;font-weight:600;}
+  .page{display:none;}
+  .page.active{display:block;}
+
+  .utility-bar{background:var(--navy-2);color:var(--gold-light);font-size:0.72rem;padding:8px 6vw;display:flex;justify-content:space-between;}
+  .utility-links{display:flex;gap:24px;}
+  .utility-links a{cursor:pointer;opacity:0.85;}
+  .utility-links a:hover{opacity:1;}
+  nav{background:var(--navy);border-bottom:3px solid var(--gold);padding:22px 6vw;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+  .brand-lockup{display:flex;align-items:center;gap:14px;cursor:pointer;}
+  .brand-name .big{font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--paper);display:block;letter-spacing:0.3px;}
+  .brand-name .small{font-size:0.66rem;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;}
+  .nav-links{display:flex;gap:34px;}
+  .nav-links a{color:var(--parchment);font-size:0.82rem;font-weight:500;cursor:pointer;}
+  .nav-links a:hover{color:var(--gold-light);}
+  .apply-btn{background:var(--gold);color:var(--navy-2);padding:11px 22px;font-size:0.78rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;border:none;}
+  @media (max-width:900px){.nav-links{display:none;}}
+
+  .hero{background:linear-gradient(180deg,var(--navy) 0%, var(--navy-3) 100%);color:var(--paper);padding:80px 6vw 60px;position:relative;overflow:hidden;}
+  .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg, rgba(199,162,83,0.05) 0px, rgba(199,162,83,0.05) 1px, transparent 1px, transparent 42px);pointer-events:none;}
+  .hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.3fr 0.9fr;gap:56px;align-items:center;position:relative;}
+  .hero-eyebrow{color:var(--gold-light);margin-bottom:18px;}
+  h1.hero-title{font-size:clamp(2.1rem,4.2vw,3.3rem);line-height:1.16;font-weight:600;margin-bottom:22px;}
+  h1.hero-title em{font-style:italic;color:var(--gold-light);}
+  .hero-desc{color:#C9D2E4;font-size:1.05rem;line-height:1.65;max-width:520px;margin-bottom:32px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-gold{background:var(--gold);color:var(--navy-2);padding:15px 28px;font-weight:700;font-size:0.82rem;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;border:none;display:inline-block;text-align:center;}
+  .btn-gold:hover{background:var(--gold-light);}
+  .btn-outline{border:1px solid rgba(255,255,255,0.35);color:var(--paper);padding:15px 28px;font-weight:600;font-size:0.82rem;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;background:none;display:inline-block;text-align:center;}
+  .btn-outline:hover{border-color:var(--gold);}
+  .btn-outline.dark{border-color:var(--navy);color:var(--navy);}
+
+  .seal-wrap{display:flex;justify-content:center;}
+  .seal-caption{text-align:center;color:var(--gold-light);margin-top:14px;font-size:0.7rem;letter-spacing:1.5px;}
+
+  .ribbon{background:var(--gold);color:var(--navy-2);display:flex;flex-wrap:wrap;justify-content:center;}
+  .ribbon-stat{flex:1;min-width:180px;text-align:center;padding:22px 20px;border-right:1px solid rgba(15,27,51,0.18);}
+  .ribbon-stat:last-child{border-right:none;}
+  .ribbon-num{font-family:'EB Garamond',serif;font-size:2rem;font-weight:700;}
+  .ribbon-label{font-size:0.68rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-top:2px;}
+
+  section{padding:76px 6vw;max-width:1180px;margin:0 auto;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-eyebrow{color:var(--required);margin-bottom:12px;}
+  h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600;line-height:1.2;margin-bottom:14px;}
+  .section-desc{color:var(--ink-dim);font-size:1rem;line-height:1.65;}
+
+  .catalog{border:1px solid var(--line);}
+  .catalog-row{display:grid;grid-template-columns:110px 1fr 140px 20px;gap:20px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);cursor:pointer;}
+  .catalog-row:hover{background:var(--gold-light)!important;}
+  .catalog-row:last-child{border-bottom:none;}
+  .catalog-row:nth-child(odd){background:var(--parchment);}
+  .course-code{font-weight:700;color:var(--navy);font-size:0.85rem;letter-spacing:0.4px;}
+  .course-name{font-family:'EB Garamond',serif;font-size:1.15rem;font-weight:600;}
+  .course-desc{color:var(--ink-dim);font-size:0.85rem;margin-top:3px;}
+  .course-credits{text-align:right;color:var(--ink-dim);font-size:0.8rem;}
+  .arrow{color:var(--required);text-align:right;}
+
+  .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .problem-card{background:var(--parchment);padding:28px;}
+  .problem-card .num{color:var(--required);font-size:0.8rem;margin-bottom:12px;font-weight:700;}
+  .problem-card h3{font-size:1.05rem;margin:0 0 10px;}
+  .problem-card p{color:var(--ink-dim);font-size:0.9rem;line-height:1.55;margin:0;}
+  @media (max-width:820px){.problem-grid{grid-template-columns:1fr;}}
+
+  .testimonial-box{background:var(--parchment);border:1px solid var(--line);padding:36px;}
+  .testimonial-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+  @media (max-width:820px){.testimonial-grid{grid-template-columns:1fr;}}
+  .testimonial-grid p{font-family:'EB Garamond',serif;font-style:italic;font-size:1.05rem;line-height:1.5;margin:0 0 10px;}
+
+  .assessment{background:var(--navy);color:var(--paper);border:1px solid var(--navy-3);}
+  .assessment-head{padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;justify-content:space-between;align-items:center;}
+  .assessment-head .cap{color:var(--gold-light);}
+  .assessment-body{padding:30px 28px;}
+  .assess-stem{font-size:1.05rem;line-height:1.65;margin-bottom:24px;}
+  .assess-options{display:flex;flex-direction:column;gap:10px;}
+  .aopt{text-align:left;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.18);color:var(--paper);padding:14px 18px;font-size:0.92rem;cursor:pointer;}
+  .aopt:hover{border-color:var(--gold-light);}
+  .aopt.correct{border-color:var(--gold);background:rgba(199,162,83,0.14);}
+  .aopt.wrong{border-color:var(--required);background:rgba(140,59,59,0.18);}
+  .aopt:disabled{cursor:default;}
+  .arationale{margin-top:20px;padding:18px;background:rgba(255,255,255,0.05);border-left:3px solid var(--gold);font-size:0.88rem;line-height:1.65;display:none;}
+  .arationale.show{display:block;}
+  .arationale.miss{border-left-color:var(--required);}
+  .grade-stamp{font-family:'EB Garamond',serif;font-style:italic;font-size:0.85rem;color:var(--gold-light);border:1px solid var(--gold-light);padding:4px 12px;border-radius:2px;}
+  .next-btn{display:none;margin-top:16px;}
+  .next-btn.show{display:inline-block;}
+
+  .tuition-grid{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--line);}
+  .tuition-card{padding:34px 28px;border-right:1px solid var(--line);}
+  .tuition-card:last-child{border-right:none;}
+  .tuition-card.featured{background:var(--navy);color:var(--paper);}
+  .tuition-card.featured .tuition-desc,.tuition-card.featured .tfeat{color:#C9D2E4;}
+  .tuition-name{font-size:0.75rem;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:var(--required);margin-bottom:12px;}
+  .tuition-card.featured .tuition-name{color:var(--gold-light);}
+  .tuition-price{font-family:'EB Garamond',serif;font-size:2.2rem;font-weight:700;margin-bottom:6px;}
+  .tuition-desc{color:var(--ink-dim);font-size:0.85rem;margin-bottom:22px;line-height:1.5;}
+  .tfeat{list-style:none;padding:0;margin:0 0 26px;font-size:0.85rem;color:var(--ink-dim);}
+  .tfeat li{padding:7px 0;border-top:1px solid var(--line);}
+  .tuition-card.featured .tfeat li{border-top:1px solid rgba(255,255,255,0.15);}
+  .tfeat li:first-child{border-top:none;}
+  @media (max-width:820px){.tuition-grid{grid-template-columns:1fr;}.tuition-card{border-right:none;border-bottom:1px solid var(--line);}}
+
+  footer{background:var(--navy-2);color:#9FAAC4;padding:50px 6vw 30px;}
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;}
+  .footer-note{font-size:0.75rem;margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);max-width:1180px;margin-left:auto;margin-right:auto;}
+  .footer-links div{cursor:pointer;}
+  .footer-links div:hover{color:var(--gold-light);}
+
+  .page-head{background:var(--navy);color:var(--paper);padding:50px 6vw;}
+  .page-head-inner{max-width:1180px;margin:0 auto;}
+  .page-head-inner.narrow{max-width:820px;}
+  .breadcrumb{color:var(--gold-light);font-size:0.75rem;margin-bottom:14px;cursor:pointer;}
+  .page-head h1{font-size:clamp(1.8rem,3.4vw,2.4rem);font-weight:600;margin-bottom:10px;}
+  .page-sub{color:#C9D2E4;max-width:600px;line-height:1.6;}
+  .dept-code{color:var(--gold-light);font-weight:700;font-size:0.85rem;margin-bottom:8px;}
+
+  .content-grid{max-width:1180px;margin:0 auto;padding:50px 6vw 90px;display:grid;grid-template-columns:1.6fr 0.9fr;gap:44px;}
+  @media (max-width:860px){.content-grid{grid-template-columns:1fr;}}
+  .sidebar-card{background:var(--navy);color:var(--paper);padding:30px;height:fit-content;}
+  .sidebar-card .price{font-family:'EB Garamond',serif;font-size:2rem;font-weight:700;margin:6px 0 4px;}
+  .sidebar-card .price-desc{color:#C9D2E4;font-size:0.85rem;margin-bottom:20px;line-height:1.5;}
+  .sidebar-stats{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.15);font-size:0.85rem;color:#C9D2E4;}
+  .sidebar-stats div{display:flex;justify-content:space-between;padding:6px 0;}
+
+  .narrow-section{padding:50px 6vw 90px;max-width:820px;margin:0 auto;}
+  .progress{display:flex;gap:6px;margin-bottom:28px;flex-wrap:wrap;}
+  .progress div{flex:1;min-width:16px;height:4px;background:var(--line);border-radius:2px;}
+  .progress div.done{background:var(--gold);}
+  .results{display:none;text-align:center;background:var(--parchment);border:1px solid var(--line);padding:44px 28px;}
+  .results.show{display:block;}
+  .results .score{font-family:'EB Garamond',serif;font-size:3rem;font-weight:700;color:var(--navy);}
+  .results p{color:var(--ink-dim);max-width:460px;margin:10px auto 26px;line-height:1.6;}
+  .results-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+
+  .checkout-layout{max-width:1000px;margin:0 auto;padding:50px 6vw 90px;display:grid;grid-template-columns:1fr 380px;gap:50px;}
+  @media (max-width:820px){.checkout-layout{grid-template-columns:1fr;}}
+  label{display:block;font-size:0.78rem;font-weight:600;color:var(--ink-dim);margin-bottom:6px;margin-top:16px;text-transform:uppercase;letter-spacing:0.5px;}
+  input,textarea{width:100%;padding:13px 14px;border:1px solid var(--line);background:var(--paper);font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);}
+  input:focus,textarea:focus{outline:none;border-color:var(--navy);}
+  .pay-btn{width:100%;margin-top:24px;}
+  .disclaimer{font-size:0.72rem;color:var(--ink-dim);margin-top:14px;line-height:1.5;}
+  .stripe-badge{display:flex;align-items:center;gap:8px;font-size:0.75rem;color:var(--ink-dim);margin-top:16px;}
+  .summary{background:var(--parchment);border:1px solid var(--line);padding:28px;height:fit-content;}
+  .summary-line{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:0.9rem;}
+  .summary-total{display:flex;justify-content:space-between;padding-top:14px;margin-top:6px;border-top:2px solid var(--navy);font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:700;}
+  .plan-name{font-family:'EB Garamond',serif;font-size:1.15rem;font-weight:600;}
+  .plan-desc{color:var(--ink-dim);font-size:0.82rem;margin-top:4px;}
+  .dev-warning{display:none;background:#FBEAEA;border:1px solid var(--required);color:var(--required);padding:12px 14px;font-size:0.78rem;line-height:1.5;margin-top:16px;}
+  .dev-warning.show{display:block;}
+
+  .portal-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;background:var(--navy);}
+  .portal-card{background:var(--paper);color:var(--ink);width:380px;padding:40px 34px;border-top:3px solid var(--gold);margin:60px 0;}
+  .portal-card h2{font-size:1.2rem;text-align:center;margin:0 0 22px;}
+  .portal-brand{text-align:center;margin-bottom:26px;}
+  .portal-brand .big{font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--navy);display:block;}
+  .portal-brand .small{font-size:0.66rem;letter-spacing:2px;color:var(--ink-dim);text-transform:uppercase;}
+  .foot-link{text-align:center;margin-top:18px;font-size:0.8rem;color:var(--ink-dim);}
+  .foot-link a{color:var(--navy);font-weight:600;text-decoration:underline;cursor:pointer;}
+/* ---- Paywall lock card ---- */
+.lock-card{background:var(--navy);color:var(--paper);border:1px solid var(--navy-3);padding:50px 34px;text-align:center;}
+.lock-icon{font-size:2rem;margin-bottom:14px;}
+.lock-card h3{font-size:1.3rem;margin-bottom:12px;}
+.lock-card p{color:#C9D2E4;max-width:420px;margin:0 auto 24px;line-height:1.6;font-size:0.92rem;}
+
+/* ---- Portal dashboard ---- */
+.portal-plan-badge{background:var(--parchment);color:var(--navy);text-align:center;padding:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:18px;}
+.portal-dept-list{border:1px solid var(--line);margin-bottom:10px;}
+.portal-dept-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer;}
+.portal-dept-row:last-child{border-bottom:none;}
+.portal-dept-row:hover{background:var(--parchment);}
+.portal-dept-name{font-family:'EB Garamond',serif;font-weight:600;font-size:0.98rem;}
+.portal-dept-sub{color:var(--ink-dim);font-size:0.75rem;margin-top:2px;}
+
+/* ---- Comparison table ---- */
+.compare-table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:var(--paper);}
+.compare-table th,.compare-table td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:0.88rem;}
+.compare-table th{background:var(--navy);color:var(--paper);font-family:'EB Garamond',serif;font-size:0.95rem;font-weight:600;}
+.compare-table td:first-child{font-weight:600;color:var(--ink);}
+.compare-table .yes{color:#3E7B4F;font-weight:700;}
+.compare-table .no{color:var(--ink-dim);}
+.compare-table tr:nth-child(even) td{background:var(--parchment);}
+
+/* ---- Guarantee badge ---- */
+.guarantee-box{display:flex;gap:20px;align-items:flex-start;background:var(--navy);color:var(--paper);padding:32px;margin-top:36px;}
+.guarantee-seal{font-size:2.4rem;flex-shrink:0;}
+.guarantee-box h3{font-size:1.2rem;margin-bottom:8px;}
+.guarantee-box p{color:#C9D2E4;font-size:0.88rem;line-height:1.6;margin:0;}
+
+</style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="utility-links"><a data-nav="portal">Student Portal</a><a data-nav="catalog">Catalog</a><a data-nav="contact">Contact Registrar</a></div>
+  <div>NCSBN-Aligned Curriculum</div>
+</div>
+
+<nav>
+  <div class="brand-lockup" data-nav="home">
+    <svg width="40" height="40" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="47" fill="none" stroke="#C7A253" stroke-width="2"/>
+      <path d="M20,50 L34,50 L38,38 L44,62 L48,50 L80,50" fill="none" stroke="#E4CD94" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="brand-name"><span class="big">Student to Nurse</span><span class="small">NCLEX-RN Prep</span></div>
+  </div>
+  <div class="nav-links">
+    <a data-nav="catalog">Course Catalog</a>
+    <a data-nav="home" data-anchor="why">Why It Works</a>
+    <a data-nav="assessment">Sample Assessment</a>
+    <a data-nav="home" data-anchor="tuition">Tuition</a>
+  </div>
+  <button class="apply-btn" data-nav="home" data-anchor="tuition">Enroll Now</button>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="cap hero-eyebrow">For Students. By Students.</div>
+        <h1 class="hero-title">A rigorous course of study, <em>built by the students living it.</em></h1>
+        <p class="hero-desc">Student to Nurse was built the same way you study — by students, in the middle of the same coursework, turning the questions that caught them off guard into the practice bank you're studying from now.</p>
+        <div class="hero-ctas">
+          <button class="btn-gold" data-nav="home" data-anchor="tuition">Request Enrollment</button>
+          <button class="btn-outline" data-nav="catalog">View Course Catalog</button>
+        </div>
+      </div>
+      <div class="seal-wrap">
+        <div>
+          <svg width="280" height="280" viewBox="0 0 280 280">
+            <circle cx="140" cy="140" r="130" fill="none" stroke="#C7A253" stroke-width="2"/>
+            <circle cx="140" cy="140" r="110" fill="none" stroke="#C7A253" stroke-width="1"/>
+            <circle cx="140" cy="140" r="108" fill="rgba(199,162,83,0.05)"/>
+            <path id="sealArcTop" d="M 40,140 A 100,100 0 0 1 240,140" fill="none"/>
+            <path id="sealArcBottom" d="M 240,140 A 100,100 0 0 1 40,140" fill="none"/>
+            <text font-family="Inter, sans-serif" font-size="10.5" letter-spacing="3" fill="#E4CD94" font-weight="600"><textPath href="#sealArcTop" startOffset="50%" text-anchor="middle">STUDENT TO NURSE NCLEX PREP</textPath></text>
+            <text font-family="Inter, sans-serif" font-size="10.5" letter-spacing="3" fill="#E4CD94" font-weight="600"><textPath href="#sealArcBottom" startOffset="50%" text-anchor="middle">CLINICAL JUDGMENT · FIRST ATTEMPT</textPath></text>
+            <path d="M75,140 L108,140 L116,110 L128,170 L138,140 L150,140 L156,124 L164,156 L172,140 L205,140" fill="none" stroke="#E4CD94" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="140" y="185" fill="#C7A253" font-family="EB Garamond, serif" font-style="italic" font-size="12" text-anchor="middle">Est. 2026</text>
+          </svg>
+          <div class="seal-caption">STUDENT-BUILT · STUDENT-VETTED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ribbon">
+    <div class="ribbon-stat"><div class="ribbon-num">92%</div><div class="ribbon-label">First-Attempt Pass Rate</div></div>
+    <div class="ribbon-stat"><div class="ribbon-num">14</div><div class="ribbon-label">Departments of Study</div></div>
+    <div class="ribbon-stat"><div class="ribbon-num">140+</div><div class="ribbon-label">Clinical Judgment Items</div></div>
+    <div class="ribbon-stat"><div class="ribbon-num">100%</div><div class="ribbon-label">Student-Written</div></div>
+  </div>
+
+  <section id="catalog">
+    <div class="section-head">
+      <div class="cap section-eyebrow">Course Catalog</div>
+      <h2>Fourteen departments, one method.</h2>
+      <p class="section-desc">Every content area on the NCLEX-RN test plan. Click a department to try its full 10-question practice quiz.</p>
+    </div>
+    <div class="catalog" id="homeCatalogList"></div>
+  </section>
+
+  <section id="why">
+    <div class="section-head">
+      <div class="cap section-eyebrow">Why It Works</div>
+      <h2>Written in the classroom, not years removed from it.</h2>
+      <p class="section-desc">Every item in the catalog starts as real coursework — built while the material is still fresh, then checked against the current NCLEX-RN test plan before it's added to the bank. That's a structurally different production process than most prep courses use, and it's why the questions feel different from the first one you answer.</p>
+    </div>
+    <div class="problem-grid" style="margin-bottom:56px;">
+      <div class="problem-card"><div class="num">01</div><h3>Written from live coursework</h3><p>Every department is drawn from current Med-Surg, pharm, and clinical rotations — not a decade-old question bank licensed from someone who hasn't practiced recently.</p></div>
+      <div class="problem-card"><div class="num">02</div><h3>Checked against the test plan</h3><p>Every item is cross-referenced to the current NCSBN test plan category before publishing, so study time maps directly to what's actually tested.</p></div>
+      <div class="problem-card"><div class="num">03</div><h3>Reasoning, not memorization</h3><p>Every answer — right or wrong — comes with a full clinical rationale, so you learn the "why," building the clinical judgment the exam is actually built to test.</p></div>
+    </div>
+
+    <div class="section-head" style="margin-bottom:28px;">
+      <div class="cap section-eyebrow">How We Compare</div>
+      <h2 style="font-size:1.5rem;">Why students choose Student to Nurse over a traditional review course.</h2>
+    </div>
+    <table class="compare-table" style="margin-bottom:56px;">
+      <tr><th>What matters</th><th>Student to Nurse</th><th>Typical Legacy Review Course</th></tr>
+      <tr><td>Who writes the questions</td><td class="yes">Students, currently in coursework</td><td class="no">Instructors, often years removed from clinicals</td></tr>
+      <tr><td>Content freshness</td><td class="yes">Added while material is still current</td><td class="no">Static bank, updated infrequently</td></tr>
+      <tr><td>Focus</td><td class="yes">Clinical judgment &amp; prioritization</td><td class="no">Heavy on anatomy and recall</td></tr>
+      <tr><td>Every answer explained</td><td class="yes">Full rationale, right or wrong</td><td class="no">Often correct-answer-only</td></tr>
+      <tr><td>Price</td><td class="yes">$27 per department or $247 full program</td><td class="no">Often $200–$500+ flat, no à la carte option</td></tr>
+    </table>
+
+    <div class="testimonial-box">
+      <div class="cap" style="color:var(--required);margin-bottom:16px;">What Students Are Saying</div>
+      <div class="testimonial-grid">
+        <div><p>"The rationale on every wrong answer taught me more than a whole week of static question banks."</p><div class="cap" style="color:var(--required);">— Maya, 4th-Semester BSN</div></div>
+        <div><p>"Finally a bank that skips the anatomy filler and goes straight to prioritization."</p><div class="cap" style="color:var(--required);">— Josiah, ADN Student</div></div>
+        <div><p>"Studying alongside my Med-Surg rotation instead of starting over after graduation made all the difference."</p><div class="cap" style="color:var(--required);">— Priya, Pre-Licensure Student</div></div>
+      </div>
+    </div>
+
+    <div class="guarantee-box">
+      <div class="guarantee-seal">🛡️</div>
+      <div>
+        <h3>30-Day Study Guarantee</h3>
+        <p>If Student to Nurse isn't the most useful thing in your NCLEX prep in the first 30 days, we'll refund the department or program in full — no forms, no runaround. We can't guarantee an exam outcome (nobody honestly can), but we can guarantee you'll find the practice genuinely worth your study time, or your money back.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="assessment">
+    <div class="section-head">
+      <div class="cap section-eyebrow">Live Demo</div>
+      <h2>Answer one right now.</h2>
+      <p class="section-desc">This is the format used across every department — a scenario, four responses, a full rationale either way.</p>
+    </div>
+    <div class="assessment" style="max-width:680px;">
+      <div class="assessment-head"><span class="cap">NURS-301 · Cardiac · Item 14</span><span class="grade-stamp" id="homeGradeStamp">Ungraded</span></div>
+      <div class="assessment-body">
+        <p class="assess-stem">A client on digoxin reports nausea and sees a "yellow-green halo" around lights. Which action should the nurse take <strong>first</strong>?</p>
+        <div class="assess-options" id="homeQuizOptions">
+          <button class="aopt" data-correct="false">Administer the next scheduled dose as ordered</button>
+          <button class="aopt" data-correct="false">Document the finding and reassess in 4 hours</button>
+          <button class="aopt" data-correct="true">Hold the dose and notify the provider</button>
+          <button class="aopt" data-correct="false">Increase oral fluid intake and recheck vitals</button>
+        </div>
+        <div class="arationale" id="homeRationale"></div>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <button class="btn-outline dark" data-nav="assessment">Take the Full 5-Question Assessment →</button>
+    </div>
+  </section>
+
+  <section id="tuition">
+    <div class="section-head">
+      <div class="cap section-eyebrow">Tuition &amp; Enrollment</div>
+      <h2>Choose a course of study.</h2>
+    </div>
+    <div class="tuition-grid">
+      <div class="tuition-card">
+        <div class="tuition-name">Single Department</div>
+        <div class="tuition-price">$27</div>
+        <p class="tuition-desc">Enroll in one department before committing further.</p>
+        <ul class="tfeat"><li>1 department · 10 practice items</li><li>Full rationale library</li><li>Lifetime access</li></ul>
+        <button class="btn-outline dark" style="width:100%;" data-nav="catalog">Choose a Department</button>
+      </div>
+      <div class="tuition-card featured">
+        <div class="tuition-name">Full Program</div>
+        <div class="tuition-price">$247</div>
+        <p class="tuition-desc">All fourteen departments, with new items added each term.</p>
+        <ul class="tfeat"><li>All 14 departments · 140+ items</li><li>Weekly new items</li><li>Weak-area drill placement</li><li>Private cohort access</li></ul>
+        <button class="btn-gold" style="width:100%;" data-nav="checkout" data-plan="full">Enroll in Full Program</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CATALOG PAGE ============ -->
+<div class="page" id="page-catalog">
+  <div class="page-head"><div class="page-head-inner">
+    <div class="breadcrumb" data-nav="home">Home / Course Catalog</div>
+    <h1>Full Course Catalog</h1>
+    <p class="page-sub">Fourteen departments covering the complete NCLEX-RN test plan. Click any department for its full 10-question interactive practice quiz.</p>
+  </div></div>
+  <section><div class="catalog" id="fullCatalogList"></div></section>
+</div>
+
+<!-- ============ COURSE DETAIL PAGE ============ -->
+<div class="page" id="page-course">
+  <div class="page-head"><div class="page-head-inner">
+    <div class="breadcrumb"><span data-nav="home">Home</span> / <span data-nav="catalog">Course Catalog</span> / <span id="crumbName">Department</span></div>
+    <div class="dept-code" id="deptCode">NURS-000</div>
+    <h1 id="deptName">Loading…</h1>
+    <p class="page-sub" id="deptDesc"></p>
+  </div></div>
+  <div class="content-grid">
+    <div>
+      <h2 style="font-size:1.3rem;margin-bottom:18px;">Practice Quiz — 10 Items</h2>
+      <div class="progress" id="deptProgress"></div>
+      <div id="deptQuizArea"></div>
+      <div class="results" id="deptResults">
+        <div class="cap" style="color:var(--required);">Practice Set Complete</div>
+        <div class="score" id="deptScoreText">0 / 10</div>
+        <p>Enroll in this department to unlock the full expanding item bank, or compare the Full Program for all fourteen departments.</p>
+        <div class="results-btns">
+          <button class="btn-gold" id="deptResultsEnroll">Enroll in This Department</button>
+          <button class="btn-outline dark" data-nav="home" data-anchor="tuition">Compare Full Program</button>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-card">
+      <div class="cap" style="color:var(--gold-light);">Single Department</div>
+      <div class="price" id="deptPrice">$27</div>
+      <p class="price-desc">Full access to this department, including every item and rationale, forever.</p>
+      <button class="btn-gold" style="width:100%;margin-bottom:12px;" id="courseEnrollBtn">Enroll in This Department</button>
+      <button class="btn-outline" style="width:100%;" data-nav="home" data-anchor="tuition">Compare Full Program</button>
+      <div class="sidebar-stats">
+        <div><span>Items available now</span><span id="statItems">—</span></div>
+        <div><span>Access</span><span>Lifetime</span></div>
+        <div><span>Format</span><span>Interactive</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ASSESSMENT PAGE ============ -->
+<div class="page" id="page-assessment">
+  <div class="page-head"><div class="page-head-inner narrow">
+    <div class="breadcrumb" data-nav="home">Home / Sample Assessment</div>
+    <h1>Sit a Full Sample Assessment</h1>
+    <p class="page-sub">Five items pulled from across the catalog. Every answer comes with a full rationale.</p>
+  </div></div>
+  <div class="narrow-section">
+    <div class="progress" id="progress"></div>
+    <div id="quizArea"></div>
+    <div class="results" id="results">
+      <div class="cap" style="color:var(--required);">Assessment Complete</div>
+      <div class="score" id="scoreText">0 / 5</div>
+      <p>This is a small sample of the full item bank. Enroll to unlock all 140+ interactive items across all fourteen departments.</p>
+      <button class="btn-gold" data-nav="checkout" data-plan="full">Enroll in Full Program — $247</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHECKOUT PAGE ============ -->
+<div class="page" id="page-checkout">
+  <div id="checkoutForm">
+    <div class="checkout-layout">
+      <div>
+        <div class="breadcrumb" data-nav="home" style="margin-bottom:20px;">Home / Enrollment</div>
+        <h1 style="font-size:1.9rem;margin-bottom:10px;">Complete Your Enrollment</h1>
+        <p style="color:var(--ink-dim);font-size:0.9rem;line-height:1.6;">Payment is handled securely by Stripe. Enter your email, then continue to Stripe's hosted checkout to enter card details.</p>
+        <label>Email Address</label>
+        <input type="email" id="checkoutEmail" placeholder="you@school.edu" required>
+        <button class="btn-gold pay-btn" id="stripeBtn">Continue to Secure Payment →</button>
+        <div class="stripe-badge">🔒 Payments processed by Stripe — card details never touch this site.</div>
+        <div class="dev-warning" id="devWarning">⚠ <strong>Developer note:</strong> this page creates a real Stripe Checkout Session by calling your backend (server.js). Make sure it's running — see the setup instructions.</div>
+      </div>
+      <div class="summary">
+        <div class="cap" style="color:var(--required);margin-bottom:14px;">Order Summary</div>
+        <div class="summary-line"><div><div class="plan-name" id="planName">Full Program</div><div class="plan-desc" id="planDesc">All fourteen departments, lifetime access</div></div><div id="planPrice">$247</div></div>
+        <div class="summary-total"><span>Total Due Today</span><span id="totalPrice">$247</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CONTACT PAGE ============ -->
+<div class="page" id="page-contact">
+  <div class="narrow-section" style="max-width:560px;">
+    <div class="breadcrumb" data-nav="home">Home / Contact Registrar</div>
+    <h1 style="font-size:1.9rem;margin-bottom:12px;">Contact the Registrar</h1>
+    <p style="color:var(--ink-dim);line-height:1.6;margin-bottom:30px;">Questions about enrollment, department access, or your account — send a note and expect a reply within one business day.</p>
+    <form id="contactForm">
+      <label>Name</label><input type="text" required>
+      <label>Email</label><input type="email" required>
+      <label>Message</label><textarea required style="min-height:120px;"></textarea>
+      <button type="submit" class="btn-gold" style="margin-top:24px;">Send Message</button>
+    </form>
+    <p id="contactSent" style="display:none;color:var(--navy);font-weight:600;margin-top:16px;">Message sent — this is a demo form, so no message was actually delivered.</p>
+  </div>
+</div>
+
+<!-- ============ PORTAL PAGE ============ -->
+<div class="page" id="page-portal">
+  <div class="portal-wrap">
+    <div class="portal-card" id="portalCardInner">
+      <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Student Portal</span></div>
+      <h2>Sign In</h2>
+      <form id="portalForm">
+        <label>Email</label><input type="email" required>
+        <label>Password</label><input type="password" required>
+        <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Sign In</button>
+      </form>
+      <p class="foot-link">Not enrolled yet? <a data-nav="home" data-anchor="tuition">View tuition options</a></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="brand-name"><span class="big" style="color:var(--paper);">Student to Nurse</span><span class="small">For Students. By Students.</span></div>
+    <div class="footer-links" style="font-size:0.85rem;line-height:2;">
+      <div class="cap" style="color:var(--gold-light);margin-bottom:8px;">Program</div>
+      <div data-nav="catalog">Course Catalog</div><div data-nav="home" data-anchor="why">Why It Works</div><div data-nav="home" data-anchor="tuition">Tuition</div>
+    </div>
+    <div class="footer-links" style="font-size:0.85rem;line-height:2;">
+      <div class="cap" style="color:var(--gold-light);margin-bottom:8px;">Registrar</div>
+      <div data-nav="portal">Student Portal</div><div data-nav="contact">Contact</div>
+    </div>
+  </div>
+  <div class="footer-note">Student to Nurse is an independent, student-built NCLEX-RN review program and is not affiliated with, endorsed by, or a substitute for accredited nursing degree programs or the NCSBN.</div>
+</footer>
+
+<script>
+/* =========================================================================
+   STRIPE CONFIG — replace these with your real Payment Links.
+   Stripe Dashboard → Products → create a $27 and a $247 price →
+   Payment Links → copy the buy.stripe.com URL for each.
+   Set each link's "After payment" success URL to:
+     https://YOURDOMAIN.com/index.html?enrolled=1&plan=full          (full link)
+     https://YOURDOMAIN.com/index.html?enrolled=1&plan=single&code={CHECKOUT_SESSION_ID}  (single — see note below)
+   ========================================================================= */
+/* =========================================================================
+   BACKEND CONFIG
+   -------------------------------------------------------------------------
+   This site now calls YOUR backend (see server.js) to create a real Stripe
+   Checkout Session using your secret API key server-side. The key itself
+   never appears in this file or in the browser — that's the whole point.
+
+   Point this at wherever server.js is running:
+     - Local dev:      http://localhost:4242
+     - Deployed:        https://your-deployed-backend.com
+
+   server.js sets each Checkout Session's success_url to:
+     https://YOURDOMAIN.com/index.html?session_id={CHECKOUT_SESSION_ID}
+   The frontend sends that session_id back to the backend, which asks
+   Stripe directly whether it was really paid — the URL itself proves
+   nothing on its own, which is what makes this safe against someone
+   just typing a fake success URL into their browser.
+   ========================================================================= */
+const API_BASE = "http://localhost:4242";
+
+/* =========================================================================
+   ENROLLMENT STATE (session-only — resets on page reload)
+   -------------------------------------------------------------------------
+   IMPORTANT — READ BEFORE DEPLOYING FOR REAL MONEY:
+   This object is the ONLY thing gating access to full question banks.
+   It lives in browser memory, which means:
+     1. It is NOT persistent — closing the tab loses "enrolled" status.
+     2. It is NOT secure — anyone can open devtools and type
+        `enrollment.full = true` to unlock everything for free.
+   This is fine for a working prototype/demo. For a real paid product you
+   need a backend that:
+     a) Receives a Stripe webhook (checkout.session.completed) — this is
+        the only trustworthy signal that money actually changed hands.
+     b) Verifies the webhook signature with your Stripe webhook secret.
+     c) Writes the entitlement to a real database row tied to a real
+        user account (with real login, not just "type your email").
+     d) Serves the full question bank only to authenticated, entitled
+        users — e.g. via an API call this file would fetch from.
+   See the chat response for a minimal example server.
+   ========================================================================= */
+let enrollment = { full: false, singles: [] }; // singles = array of enrolled department codes
+
+function isDeptUnlocked(code) {
+  return enrollment.full || enrollment.singles.includes(code);
+}
+
+/* Handle return from Stripe: verify the session server-side rather than
+   trusting URL params (which anyone could type in by hand). */
+(function handleStripeReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  if (!sessionId) return;
+  window.history.replaceState({}, '', window.location.pathname); // clean URL immediately
+  window.__pendingVerification = fetch(`${API_BASE}/api/verify-session?session_id=${encodeURIComponent(sessionId)}`)
+    .then(res => { if (!res.ok) throw new Error('verification failed'); return res.json(); })
+    .then(data => {
+      // data = { paid: true, plan: 'full'|'single', code: 'NURS-301'|null, email: '...' }
+      if (!data.paid) return;
+      if (data.plan === 'full') enrollment.full = true;
+      if (data.plan === 'single' && data.code) enrollment.singles.push(data.code);
+      window.__verifiedEmail = data.email;
+      window.__stripeReturned = true;
+    })
+    .catch(() => {
+      console.warn('Could not verify Stripe session with backend — is server.js running?');
+    });
+})();
+
+/* =========================================================================
+   COURSE DATA — 10 real practice items per department
+   ========================================================================= */
+const courses = {
+"NURS-299":{name:"Fundamentals & Safety",desc:"Prioritization basics, infection control, and safe practice standards.",questions:[
+{stem:"The nurse is prioritizing rounds on four clients. Which client should be assessed first?",options:["A client 2 days post-op with stable vitals","A client reporting sudden shortness of breath","A client requesting a warm blanket","A client scheduled for discharge teaching"],correct:1,rationale:"Sudden shortness of breath signals a potential acute respiratory or cardiac event and takes priority under the ABC framework.",wrongRationale:"New-onset shortness of breath is the highest-acuity finding here and must be assessed first; the others are stable or non-urgent."},
+{stem:"Which action best follows standard precautions during a wound dressing change?",options:["Perform hand hygiene before and after donning clean gloves","Wear sterile gloves for every dressing change regardless of wound type","Reuse the same gloves between two clients if visibly clean","Skip hand hygiene if gloves were worn throughout"],correct:0,rationale:"Hand hygiene before and after glove use is the core standard precaution, regardless of wound type.",wrongRationale:"Hand hygiene before and after glove use is required every time, regardless of glove appearance or technique used."},
+{stem:"A client's call light goes unanswered for 15 minutes on a busy unit. What should the nurse do first?",options:["Finish current documentation, then respond","Delegate response to UAP without assessing urgency","Go assess the client immediately","Wait for the client to use the light again"],correct:2,rationale:"An unanswered call light for an extended period could indicate an urgent need and should be assessed promptly.",wrongRationale:"Any prolonged unanswered call light should be treated as potentially urgent and assessed promptly, not delegated blindly or delayed."},
+{stem:"Which finding requires the nurse to notify the provider immediately during a routine assessment?",options:["Temperature of 99.1°F","Blood pressure of 118/76","New confusion in a previously alert client","Urine output of 45 mL/hr"],correct:2,rationale:"Acute new-onset confusion can signal a serious change in condition and warrants prompt notification.",wrongRationale:"The other findings are within normal or expected ranges; new confusion is the abnormal, high-priority finding."},
+{stem:"Which client identifier combination meets the standard requirement for verifying identity before medication administration?",options:["Room number and bed number","Full name and date of birth","First name and diagnosis","Full name and room number"],correct:1,rationale:"Two person-specific identifiers — such as full name and date of birth — are required; room number is not acceptable.",wrongRationale:"Room or bed numbers are not acceptable identifiers since they can change; name plus date of birth is the standard combination."},
+{stem:"A nurse finds a client on the floor next to the bed. What is the priority action?",options:["Return the client to bed immediately","Assess the client for injury before moving them","Call the client's family","Complete an incident report before assessing"],correct:1,rationale:"The client should be assessed for injury before being moved, to avoid worsening a potential fracture or spinal injury.",wrongRationale:"Assessment for injury comes first; moving the client before assessing could worsen an undetected injury."},
+{stem:"Which task is safe to delegate to unlicensed assistive personnel (UAP)?",options:["Assessing a new post-op client's pain level","Administering an oral medication","Taking routine vital signs on a stable client","Teaching a client about a new diagnosis"],correct:2,rationale:"Routine vital signs on a stable client fall within UAP scope; assessment, medication administration, and teaching require licensed judgment.",wrongRationale:"Assessment, medication administration, and teaching require a licensed nurse's judgment; routine vitals on a stable client are within UAP scope."},
+{stem:"Before administering a medication, which of the 'rights' of medication administration is most directly verified by scanning the client's wristband?",options:["Right medication","Right client","Right dose","Right route"],correct:1,rationale:"Scanning the wristband confirms client identity, verifying the 'right client.'",wrongRationale:"Wristband scanning is specifically the safety check for client identity, not dose, route, or drug verification."},
+{stem:"A client is being transferred to another unit. Which handoff element is essential for patient safety?",options:["The client's insurance information","A summary of current condition, recent changes, and pending tasks","The client's visitor list","The client's meal preferences"],correct:1,rationale:"Safe handoff communication requires current condition, recent changes, and pending tasks to prevent gaps in care.",wrongRationale:"Insurance, visitors, and meal preferences are not safety-critical handoff elements; condition, changes, and pending tasks are."},
+{stem:"Which situation is considered a sentinel event requiring root cause analysis?",options:["A client refuses a scheduled medication","A client falls and sustains a serious injury","A client requests a room change","A client's vital signs are slightly elevated"],correct:1,rationale:"A fall resulting in serious injury is a sentinel event requiring root cause analysis.",wrongRationale:"Sentinel events involve unexpected death or serious harm; a fall with serious injury qualifies, while the others do not."}
+]},
+"NURS-301":{name:"Cardiac Clinical Judgment",desc:"Dysrhythmias, heart failure, and medication toxicity recognition.",questions:[
+{stem:"A client on digoxin reports nausea and sees a \"yellow-green halo\" around lights. Which action should the nurse take first?",options:["Administer the next scheduled dose as ordered","Document the finding and reassess in 4 hours","Hold the dose and notify the provider","Increase oral fluid intake and recheck vitals"],correct:2,rationale:"Nausea and visual halos are early signs of digoxin toxicity. The dose is held and the provider notified before any further dosing.",wrongRationale:"Nausea + visual halo is classic digoxin toxicity. The priority is holding the dose and notifying the provider."},
+{stem:"Which finding indicates worsening left-sided heart failure?",options:["Bilateral crackles and dyspnea","Jugular venous distention","Peripheral edema","Hepatomegaly"],correct:0,rationale:"Left-sided heart failure causes pulmonary congestion, producing crackles and dyspnea.",wrongRationale:"JVD, peripheral edema, and hepatomegaly are right-sided heart failure signs; crackles and dyspnea reflect left-sided failure."},
+{stem:"A client in atrial fibrillation with rapid ventricular response becomes symptomatic. What is the nurse's priority?",options:["Notify the provider and prepare for possible cardioversion","Increase the IV fluid rate","Reassure the client and recheck in an hour","Encourage ambulation to improve circulation"],correct:0,rationale:"A symptomatic client in rapid AFib needs prompt provider notification and preparation for rhythm control.",wrongRationale:"Symptomatic rapid AFib requires prompt intervention, not fluids, delay, or activity that increases cardiac workload."},
+{stem:"A client reports chest pain radiating to the jaw with diaphoresis. What is the nurse's priority action?",options:["Obtain a 12-lead ECG immediately","Administer an antacid","Have the client walk to the bathroom","Wait for the next scheduled vital signs check"],correct:0,rationale:"A 12-lead ECG should be obtained immediately to evaluate for acute coronary syndrome.",wrongRationale:"Chest pain with diaphoresis warrants an immediate ECG, not antacids, ambulation, or delay."},
+{stem:"Which lab value is used to monitor therapeutic effect of heparin therapy?",options:["aPTT","INR","Platelet count alone","Hemoglobin A1c"],correct:0,rationale:"aPTT is used to monitor heparin's anticoagulant effect.",wrongRationale:"aPTT specifically monitors heparin; INR is used for warfarin instead."},
+{stem:"Which teaching point is appropriate for a client recovering from a myocardial infarction?",options:["Resume all prior activity immediately","Gradually increase activity and stop if chest pain occurs","Avoid all physical activity permanently","Activity level does not need monitoring"],correct:1,rationale:"Gradual, monitored activity increase with instructions to stop for chest pain supports safe cardiac recovery.",wrongRationale:"A gradual, symptom-guided return to activity is correct; both extremes (full resumption or permanent avoidance) are inappropriate."},
+{stem:"A client taking a beta-blocker has a heart rate of 48 and blood pressure of 86/54. What should the nurse do?",options:["Administer the scheduled dose as ordered","Hold the dose and notify the provider","Double the next dose to compensate","Encourage the client to exercise to raise heart rate"],correct:1,rationale:"Bradycardia and hypotension are signs the beta-blocker dose may need to be held and the provider notified.",wrongRationale:"These vital signs indicate the medication should be held, not given, doubled, or countered with exercise."},
+{stem:"Which position best supports a client experiencing acute pulmonary edema?",options:["Supine, flat in bed","High Fowler's position with supplemental oxygen","Trendelenburg position","Left lateral position"],correct:1,rationale:"High Fowler's position reduces venous return and eases breathing in pulmonary edema, along with supplemental oxygen.",wrongRationale:"High Fowler's with oxygen is the supportive positioning for pulmonary edema; flat or Trendelenburg positioning would worsen breathing."},
+{stem:"A client develops hypotension, jugular venous distention, and muffled heart sounds after a cardiac procedure. What does the nurse suspect?",options:["Normal post-procedure recovery","Cardiac tamponade","Mild anxiety response","Improving cardiac output"],correct:1,rationale:"Beck's triad — hypotension, JVD, and muffled heart sounds — indicates cardiac tamponade, a medical emergency.",wrongRationale:"This is Beck's triad, a classic and emergent sign of cardiac tamponade, not a benign or improving finding."},
+{stem:"A client newly started on a statin should be taught to report which symptom?",options:["Mild fatigue","Unexplained muscle pain or weakness","Slightly dry skin","Improved appetite"],correct:1,rationale:"Unexplained muscle pain can signal statin-induced myopathy or rhabdomyolysis and should be reported.",wrongRationale:"Muscle pain is the clinically significant statin side effect to report; the other findings are not associated safety concerns."}
+]},
+"NURS-310":{name:"Renal & Fluid Balance",desc:"AKI/CKD staging, electrolyte prioritization, and dialysis care.",questions:[
+{stem:"A client's potassium level is 6.8 mEq/L. Which ECG change should the nurse anticipate?",options:["Flattened T waves","Peaked T waves","Prolonged QT interval","Shortened PR interval"],correct:1,rationale:"Hyperkalemia classically produces tall, peaked T waves on ECG.",wrongRationale:"Peaked (not flattened) T waves are the classic early ECG change in hyperkalemia."},
+{stem:"Which finding after hemodialysis requires immediate follow-up?",options:["Mild fatigue","Blood pressure of 88/54 with dizziness","Thirst","Access site warmth"],correct:1,rationale:"Post-dialysis hypotension with dizziness suggests excessive fluid removal and needs prompt follow-up.",wrongRationale:"Hypotension with dizziness is the concerning finding; the others are common and expected post-dialysis."},
+{stem:"When should a client take a prescribed phosphate binder?",options:["On an empty stomach","With meals","At bedtime only","Only if phosphorus is low"],correct:1,rationale:"Phosphate binders are taken with meals to bind dietary phosphate before absorption.",wrongRationale:"Binders work by binding phosphate from food, so they must be taken with meals, not on an empty stomach or at bedtime."},
+{stem:"Which nursing action is a priority during the oliguric phase of acute kidney injury?",options:["Encourage high-potassium foods","Monitor daily weight and strict intake and output","Restrict all fluids indefinitely without reassessment","Increase dietary protein without limit"],correct:1,rationale:"Daily weight and strict I&O monitoring track fluid balance, which is critical during the oliguric phase.",wrongRationale:"Careful fluid balance monitoring is the priority; high potassium, indefinite restriction, and unlimited protein are all inappropriate in AKI."},
+{stem:"Which instruction is appropriate for a client with a new arteriovenous fistula?",options:["Take blood pressure in the fistula arm for accuracy","Avoid blood pressure cuffs and venipuncture in the fistula arm","Apply heat immediately after dialysis over the site","Encourage heavy lifting with that arm"],correct:1,rationale:"The fistula arm must be protected from pressure and needle sticks to preserve access patency.",wrongRationale:"Protecting the fistula arm from BP cuffs and venipuncture preserves the access; the other actions risk damaging it."},
+{stem:"Which symptoms are associated with hyponatremia?",options:["Confusion and headache","Increased thirst only","Bradycardia","Hypertension only"],correct:0,rationale:"Hyponatremia can cause confusion, headache, and in severe cases, seizures due to cerebral edema.",wrongRationale:"Confusion and headache reflect the neurologic effects of low sodium; the other options don't match the typical presentation."},
+{stem:"Which dietary teaching point is appropriate for a client with chronic kidney disease?",options:["Increase potassium-rich foods","Limit potassium, phosphorus, and sodium","Increase protein without restriction","No dietary changes are needed"],correct:1,rationale:"CKD management typically includes limiting potassium, phosphorus, and sodium to reduce burden on the kidneys.",wrongRationale:"Limiting these nutrients reduces renal and cardiovascular strain; increasing them or making no changes would worsen CKD complications."},
+{stem:"Which respiratory pattern is associated with metabolic acidosis in renal failure?",options:["Kussmaul respirations","Bradypnea","Cheyne-Stokes breathing","Normal respirations"],correct:0,rationale:"Kussmaul respirations are a compensatory response to metabolic acidosis, blowing off CO2.",wrongRationale:"Kussmaul respirations specifically reflect the body's attempt to compensate for metabolic acidosis."},
+{stem:"A client on peritoneal dialysis has cloudy dialysate outflow. What should the nurse do?",options:["Discard as normal — cloudy outflow is expected","Notify the provider — possible peritonitis","Increase dwell time only, with no other action","Add more dialysate without assessment"],correct:1,rationale:"Cloudy outflow suggests peritonitis and requires prompt provider notification.",wrongRationale:"Cloudy dialysate is an abnormal finding suggesting infection and must be reported, not treated as routine."},
+{stem:"Which combination of findings suggests fluid volume overload?",options:["Weight gain, crackles, and edema","Weight loss and dry mucous membranes","Decreased blood pressure","Increased urine output"],correct:0,rationale:"Weight gain with crackles and edema reflects excess fluid volume.",wrongRationale:"These three findings together indicate fluid overload; the other options describe fluid volume deficit or unrelated findings."}
+]},
+"NURS-318":{name:"Reproductive & Maternity Care",desc:"Antepartum through postpartum complications.",questions:[
+{stem:"A postpartum client's fundus is boggy and displaced to the right of midline. What should the nurse do first?",options:["Assist the client to void","Administer oxytocin immediately without further assessment","Notify the provider before taking any action","Reposition the client to left side-lying"],correct:0,rationale:"A displaced, boggy fundus is often caused by a full bladder; having the client void frequently resolves it.",wrongRationale:"A full bladder is the most common cause of fundal displacement and bogginess; having the client void should be tried first."},
+{stem:"Which finding in a client with preeclampsia requires immediate provider notification?",options:["Trace pedal edema","Blood pressure of 168/112 with a severe headache","Mild fatigue","Urine output of 40 mL/hr"],correct:1,rationale:"Severe hypertension with headache suggests worsening preeclampsia and risk of eclampsia.",wrongRationale:"Severely elevated blood pressure with headache is a red-flag combination; the other findings are within expected ranges."},
+{stem:"A laboring client at 6 cm dilation has late decelerations on the fetal monitor. What is the nurse's priority action?",options:["Continue routine monitoring","Reposition the client to her left side and administer oxygen","Increase the oxytocin infusion rate","Document and reassess in 30 minutes"],correct:1,rationale:"Late decelerations suggest uteroplacental insufficiency; repositioning and oxygen improve fetal oxygenation.",wrongRationale:"Late decelerations require immediate intrauterine resuscitation measures, not routine monitoring or increased oxytocin."},
+{stem:"A client receiving magnesium sulfate has absent deep tendon reflexes and a respiratory rate of 10. What should the nurse do first?",options:["Increase the infusion rate","Stop the infusion and notify the provider","Document the finding and recheck in an hour","Encourage the client to cough and deep breathe"],correct:1,rationale:"Absent reflexes and respiratory depression are signs of magnesium toxicity requiring the infusion to be stopped.",wrongRationale:"These are classic signs of magnesium toxicity — the infusion must be stopped immediately, not increased or simply monitored."},
+{stem:"A client has excessive postpartum bleeding with a boggy uterus. What is the nurse's priority action?",options:["Perform fundal massage","Call the client's family","Apply a cold compress to the abdomen","Elevate the head of the bed"],correct:0,rationale:"Fundal massage stimulates uterine contraction to control bleeding from uterine atony.",wrongRationale:"Fundal massage directly addresses uterine atony, the most common cause of postpartum hemorrhage."},
+{stem:"A client reports sudden, sharp unilateral abdominal pain with referred shoulder pain early in pregnancy. What should the nurse suspect?",options:["Round ligament pain","Ectopic pregnancy","Normal implantation cramping","Braxton Hicks contractions"],correct:1,rationale:"Sharp unilateral pain with referred shoulder pain is a classic sign of ruptured ectopic pregnancy.",wrongRationale:"Shoulder-tip pain with sudden sharp abdominal pain is a hallmark of ectopic pregnancy rupture."},
+{stem:"Which newborn assessment finding at 1 minute of life would result in the lowest APGAR score component?",options:["Heart rate of 130","Pink body with blue extremities","Heart rate absent","Active motion"],correct:2,rationale:"An absent heart rate scores 0 on the APGAR, the lowest possible score for that component.",wrongRationale:"Absent heart rate scores 0; the other findings all reflect at least partial or full points."},
+{stem:"An Rh-negative client who delivered an Rh-positive infant should receive which intervention?",options:["RhoGAM within 72 hours of delivery","No intervention needed","A blood transfusion","MMR vaccine before discharge"],correct:0,rationale:"RhoGAM prevents Rh sensitization in future pregnancies and should be given within 72 hours of delivery.",wrongRationale:"RhoGAM administration within 72 hours is the standard intervention to prevent maternal sensitization."},
+{stem:"Which bleeding pattern is most consistent with placenta previa rather than abruptio placentae?",options:["Painful, dark red bleeding","Painless, bright red bleeding","Concealed bleeding with a rigid abdomen","No bleeding at all"],correct:1,rationale:"Placenta previa classically presents with painless, bright red vaginal bleeding.",wrongRationale:"Painless bright red bleeding is the classic presentation of previa; pain and rigidity point toward abruption."},
+{stem:"Which observation indicates a newborn has an effective breastfeeding latch?",options:["Clicking sounds during feeding","Lips flanged outward and areola visible above the lip","Dimpled cheeks while sucking","Nipple pain that worsens throughout the feed"],correct:1,rationale:"Flanged lips with more areola visible above than below the mouth indicate a deep, effective latch.",wrongRationale:"Flanged lips and a deep latch indicate effective feeding; clicking, dimpling, and worsening pain suggest a poor latch."}
+]},
+"NURS-325":{name:"Respiratory Care",desc:"Oxygenation, ventilator basics, and airway emergencies.",questions:[
+{stem:"A client on a ventilator has a sudden drop in SpO2 with a high-pressure alarm sounding. What is the nurse's priority action?",options:["Silence the alarm and reassess in 5 minutes","Assess for tubing obstruction or biting on the tube","Increase the ventilator's set respiratory rate","Suction routinely regardless of assessment"],correct:1,rationale:"A high-pressure alarm with desaturation suggests obstruction; the tube and circuit should be assessed first.",wrongRationale:"High-pressure alarms with desaturation point to an obstruction that must be assessed and cleared first."},
+{stem:"Which postoperative client is at greatest risk for atelectasis?",options:["A client who ambulated the evening of surgery","A client following an upper abdominal incision who is reluctant to cough due to pain","A client who used an incentive spirometer hourly","A client with a lower extremity fracture repair"],correct:1,rationale:"Upper abdominal incisions cause pain that discourages deep breathing and coughing, increasing atelectasis risk.",wrongRationale:"Pain-limited breathing after an upper abdominal incision is the classic atelectasis risk factor."},
+{stem:"A client with COPD has an SpO2 of 90% on room air. What is the appropriate oxygen approach?",options:["Withhold oxygen regardless of symptoms","Apply low-flow oxygen and titrate to a target around 88–92%","Apply a non-rebreather mask at 100%","Increase oxygen until SpO2 reaches 100%"],correct:1,rationale:"Clients with chronic CO2 retention are typically managed with lower oxygen saturation targets.",wrongRationale:"Low-flow oxygen titrated to a lower target is standard for COPD; high-flow oxygen can suppress respiratory drive."},
+{stem:"A client develops sudden absent breath sounds on one side, tracheal deviation, and severe dyspnea. What does the nurse suspect?",options:["Simple pneumonia","Tension pneumothorax","Normal post-extubation finding","Mild bronchospasm"],correct:1,rationale:"Absent breath sounds with tracheal deviation is a hallmark of tension pneumothorax, a medical emergency.",wrongRationale:"Tracheal deviation with absent unilateral breath sounds is a classic emergent sign of tension pneumothorax."},
+{stem:"A client in status asthmaticus becomes quiet with minimal audible wheezing. What does this indicate?",options:["The asthma attack is resolving","Airflow is so severely reduced that wheezing can no longer be heard — an ominous sign","The client is simply falling asleep","No further intervention is needed"],correct:1,rationale:"A 'silent chest' indicates critically reduced airflow, signaling impending respiratory failure.",wrongRationale:"A silent chest during an asthma attack is an ominous sign of severely reduced airflow, not resolution."},
+{stem:"A postoperative client suddenly develops sharp chest pain, dyspnea, and tachycardia. What should the nurse do first?",options:["Encourage ambulation to improve circulation","Apply oxygen, keep the client at rest, and notify the provider immediately","Administer a laxative for suspected gas pain","Reassess in an hour"],correct:1,rationale:"These findings suggest a pulmonary embolism; the client should be kept still with oxygen and prompt notification.",wrongRationale:"Sudden dyspnea, chest pain, and tachycardia postoperatively are classic for PE — ambulation could dislodge further clot."},
+{stem:"The nurse notes continuous bubbling in the water seal chamber of a client's chest tube system. What does this indicate?",options:["Normal, expected finding","An air leak in the system","The lung has fully re-expanded","The suction is set too low"],correct:1,rationale:"Continuous bubbling in the water seal chamber indicates an air leak in the chest tube system.",wrongRationale:"Intermittent bubbling with respirations is expected; continuous bubbling signals an air leak needing investigation."},
+{stem:"Which technique is correct when suctioning a client's tracheostomy?",options:["Apply suction while inserting the catheter","Suction for no longer than 10–15 seconds per pass","Suction continuously for 30 seconds to fully clear secretions","Insert the catheter without pre-oxygenating the client"],correct:1,rationale:"Suction passes should be limited to about 10–15 seconds, with pre-oxygenation before and after.",wrongRationale:"Suction should only be applied on withdrawal and limited to 10–15 seconds to prevent hypoxia and trauma."},
+{stem:"An ABG shows pH 7.28, PaCO2 58, HCO3 24. How should the nurse interpret this?",options:["Metabolic acidosis","Respiratory acidosis","Respiratory alkalosis","Metabolic alkalosis"],correct:1,rationale:"A low pH with elevated PaCO2 and normal bicarbonate indicates uncompensated respiratory acidosis.",wrongRationale:"The elevated PaCO2 driving a low pH, with a normal bicarbonate, indicates respiratory, not metabolic, acidosis."},
+{stem:"When teaching a client to use an incentive spirometer, which instruction is correct?",options:["Exhale as forcefully as possible into the device","Inhale slowly and deeply, then hold the breath for 3–5 seconds","Use the device only once per day","Breathe rapidly and shallowly for best results"],correct:1,rationale:"A slow, deep inhalation held for 3–5 seconds maximizes lung expansion.",wrongRationale:"Slow deep inhalation with a brief breath-hold is correct; forceful exhalation or rapid shallow breathing does not achieve expansion."}
+]},
+"NURS-332":{name:"Endocrine & Metabolic",desc:"Diabetes management, thyroid and adrenal disorders.",questions:[
+{stem:"A client with type 1 diabetes becomes diaphoretic, shaky, and confused. What should the nurse do first?",options:["Administer rapid-acting insulin","Check the blood glucose level and treat for likely hypoglycemia","Encourage the client to walk around","Withhold all food until further assessment"],correct:1,rationale:"These symptoms suggest hypoglycemia; checking blood glucose confirms it before rapid treatment.",wrongRationale:"Diaphoresis, shakiness, and confusion suggest hypoglycemia — insulin would worsen it; glucose should be checked and treated immediately."},
+{stem:"Which finding in a client 12 hours post-thyroidectomy suggests thyroid storm?",options:["Temperature 98.6°F and calm affect","Fever, tachycardia, and severe agitation","Mild incisional pain","Slight hoarseness"],correct:1,rationale:"Thyroid storm presents with high fever, tachycardia, and agitation due to a surge of thyroid hormone.",wrongRationale:"High fever with tachycardia and agitation are the hallmark signs of thyroid storm; the others are expected post-op findings."},
+{stem:"A client on long-term corticosteroid therapy should be monitored for which complication?",options:["Hypoglycemia and weight loss","Hyperglycemia, infection risk, and adrenal suppression","Bradycardia","Hair growth reduction only"],correct:1,rationale:"Long-term corticosteroids can cause hyperglycemia, suppress immune response, and suppress adrenal function.",wrongRationale:"Corticosteroids raise blood glucose and increase infection risk — the opposite of the other listed effects."},
+{stem:"Which finding is most consistent with diabetic ketoacidosis (DKA)?",options:["Fruity breath odor and Kussmaul respirations","Bradycardia and hypertension","Cold, clammy skin with normal glucose","Constipation as the primary symptom"],correct:0,rationale:"Fruity breath and deep, rapid Kussmaul respirations are classic signs of DKA.",wrongRationale:"Fruity breath and Kussmaul respirations are hallmark DKA findings; the other options don't fit the typical presentation."},
+{stem:"A client with adrenal insufficiency presents with hypotension, weakness, and a serum sodium of 128. What does the nurse suspect?",options:["Diabetes insipidus","Addisonian crisis","Hyperthyroidism","Fluid overload"],correct:1,rationale:"Hypotension with hyponatremia and hyperkalemia are classic findings in an Addisonian crisis.",wrongRationale:"Hypotension with low sodium fits adrenal crisis; the other conditions present very differently."},
+{stem:"A client with SIADH is being managed. Which intervention is appropriate?",options:["Encourage high fluid intake","Restrict fluid intake and monitor sodium levels","Administer large volumes of hypotonic IV fluids","No intervention is needed"],correct:1,rationale:"SIADH causes water retention and dilutional hyponatremia; fluid restriction is the primary management.",wrongRationale:"Because SIADH causes fluid retention, fluids are restricted, not encouraged or increased."},
+{stem:"A client with diabetes insipidus is expected to have which finding?",options:["Concentrated urine and low output","Dilute urine and extremely high output","Normal urine output and osmolality","Oliguria with dark urine"],correct:1,rationale:"Diabetes insipidus results in large volumes of dilute urine and risk of dehydration.",wrongRationale:"DI causes excessive dilute urine output, the opposite of concentrated or reduced output."},
+{stem:"Which set of findings is most consistent with hypothyroidism?",options:["Weight loss, heat intolerance, tachycardia","Fatigue, cold intolerance, weight gain","Anxiety, tremors, diarrhea","Exophthalmos and rapid speech"],correct:1,rationale:"Hypothyroidism slows metabolism, producing fatigue, cold intolerance, and weight gain.",wrongRationale:"The other symptom clusters describe hyperthyroidism, not hypothyroidism."},
+{stem:"When teaching a client about insulin self-injection, which instruction is correct?",options:["Inject into the exact same site every time for consistency","Rotate injection sites within the same general area","Massage the site vigorously immediately after injecting","Reuse needles up to 10 times to save supplies"],correct:1,rationale:"Rotating sites within a general area prevents lipodystrophy while maintaining predictable absorption.",wrongRationale:"Site rotation prevents tissue damage; using the exact same spot repeatedly or reusing needles are incorrect practices."},
+{stem:"Which findings are characteristic of Cushing's syndrome?",options:["Weight loss and hypotension","Moon face, buffalo hump, and hyperglycemia","Bronze skin pigmentation","Severe hypoglycemia"],correct:1,rationale:"Excess cortisol produces central weight gain (moon face, buffalo hump) and hyperglycemia.",wrongRationale:"Moon face, buffalo hump, and hyperglycemia are classic Cushing's findings; the other options describe different disorders."}
+]},
+"NURS-340":{name:"Neurological Assessment",desc:"Stroke recognition, ICP management, and seizure protocols.",questions:[
+{stem:"A client presents with sudden facial drooping, slurred speech, and unilateral arm weakness. What is the nurse's priority action?",options:["Administer aspirin immediately","Note the time of symptom onset and notify the provider","Reassess in 30 minutes to see if symptoms resolve","Elevate the head of the bed and apply oxygen"],correct:1,rationale:"Time of onset determines eligibility for time-sensitive interventions like tPA and must be reported immediately.",wrongRationale:"Time of onset must be established and reported first — aspirin is contraindicated until hemorrhagic stroke is ruled out."},
+{stem:"Which combination of findings suggests increasing intracranial pressure?",options:["Tachycardia, hypotension, tachypnea","Bradycardia, hypertension, irregular respirations","Normal vital signs with a mild headache","Hypotension and bradypnea only"],correct:1,rationale:"Cushing's triad — bradycardia, hypertension, and irregular respirations — indicates late, severe increased ICP.",wrongRationale:"Bradycardia with hypertension and irregular respirations is the classic late sign of rising ICP."},
+{stem:"During a client's tonic-clonic seizure, what is the nurse's priority action?",options:["Restrain the client's limbs to prevent injury","Insert a padded tongue depressor into the mouth","Protect the client from injury and turn them to the side","Leave the room to get help immediately"],correct:2,rationale:"Protecting the client from injury and side-lying positioning maintains airway patency during a seizure.",wrongRationale:"Restraint and inserting objects into the mouth can cause injury; the priority is protection and side-lying positioning."},
+{stem:"On the Glasgow Coma Scale, a client who does not open their eyes, has no verbal response, and shows no motor response would score which total?",options:["15","3","8","10"],correct:1,rationale:"The lowest possible GCS score is 3, indicating deep unresponsiveness.",wrongRationale:"A GCS of 3 is the lowest possible total; 15 is a fully alert score."},
+{stem:"Which findings suggest bacterial meningitis?",options:["Nuchal rigidity, photophobia, and severe headache","Mild sore throat only","Painless neck stiffness with no other symptoms","Improved symptoms with light exposure"],correct:0,rationale:"Nuchal rigidity, photophobia, and severe headache are classic meningeal irritation signs.",wrongRationale:"These three together are the hallmark meningitis presentation, not an isolated or mild finding."},
+{stem:"A client with a spinal cord injury at T6 develops a sudden severe headache, hypertension, and bradycardia after their urinary catheter becomes kinked. What does the nurse suspect?",options:["Normal autonomic response","Autonomic dysreflexia","Orthostatic hypotension","A typical stress response"],correct:1,rationale:"Autonomic dysreflexia is triggered by a noxious stimulus below the injury level, often bladder distension.",wrongRationale:"This is a classic autonomic dysreflexia presentation — a medical emergency, not a normal response."},
+{stem:"Which symptom cluster is most characteristic of Parkinson's disease?",options:["Resting tremor, rigidity, and bradykinesia","Ascending paralysis and areflexia","Sudden vision loss and diplopia","Fever with a petechial rash"],correct:0,rationale:"Resting tremor, rigidity, and bradykinesia are the cardinal features of Parkinson's disease.",wrongRationale:"This is the classic Parkinson's triad; the other clusters describe different conditions entirely."},
+{stem:"A client with myasthenia gravis reports worsening diplopia and ptosis by the end of the day, with strength improving after rest. What does this reflect?",options:["A typical pattern of myasthenia gravis symptom fluctuation","An unrelated new diagnosis","A sign that the disease has resolved","An adverse effect unrelated to the condition"],correct:0,rationale:"Myasthenia gravis classically causes weakness that worsens with activity and improves with rest.",wrongRationale:"Fatigable weakness that worsens through the day is the hallmark pattern of myasthenia gravis."},
+{stem:"Following a lumbar puncture, which instruction should the nurse give the client?",options:["Sit upright for several hours","Lie flat for the period ordered to reduce headache risk","Ambulate immediately","Increase caffeine intake only"],correct:1,rationale:"Lying flat after a lumbar puncture reduces the risk of a post-procedure headache from CSF leakage.",wrongRationale:"Lying flat helps prevent post-lumbar-puncture headache; sitting upright or ambulating immediately increases that risk."},
+{stem:"Which nursing action should be avoided in a client with increased intracranial pressure?",options:["Keeping the head of bed elevated 30 degrees","Clustering care to minimize stimulation","Encouraging vigorous coughing and straining","Maintaining the head in a neutral, midline position"],correct:2,rationale:"Coughing and straining increase intrathoracic and intracranial pressure and should be avoided.",wrongRationale:"Vigorous coughing and straining raise ICP through the Valsalva effect; the other actions are appropriate ICP-reduction strategies."}
+]},
+"NURS-348":{name:"Gastrointestinal Care",desc:"Bowel obstruction, hepatic and pancreatic disorders.",questions:[
+{stem:"A client with cirrhosis develops asterixis and increasing confusion. What does this suggest?",options:["Hepatic encephalopathy from rising ammonia levels","A normal expected finding in cirrhosis","Hypoglycemia unrelated to liver function","Improvement in liver function"],correct:0,rationale:"Asterixis and confusion in cirrhosis indicate hepatic encephalopathy from ammonia accumulation.",wrongRationale:"Asterixis with confusion is a classic sign of hepatic encephalopathy, not a benign or improving finding."},
+{stem:"Which finding is most consistent with acute pancreatitis?",options:["Severe epigastric pain radiating to the back with elevated lipase","Right upper quadrant pain relieved by fatty food","Painless jaundice","Lower abdominal cramping relieved by defecation"],correct:0,rationale:"Severe epigastric pain radiating to the back with elevated lipase is classic for acute pancreatitis.",wrongRationale:"This is the hallmark pancreatitis presentation; the others describe different GI conditions."},
+{stem:"A client is post-bowel resection with absent bowel sounds on day 3. What is the priority action?",options:["Advance the diet as scheduled","Notify the provider for possible ileus","Administer a laxative immediately","Document as an expected finding with no follow-up"],correct:1,rationale:"Absent bowel sounds this far post-op suggest a paralytic ileus and should be reported.",wrongRationale:"Persistently absent bowel sounds by day 3 suggest ileus and should prompt notification, not diet advancement or laxatives."},
+{stem:"A client reports black, tarry stools. What does the nurse suspect?",options:["Normal stool variation","Upper gastrointestinal bleeding","A dietary reaction to dairy","Lower urinary tract infection"],correct:1,rationale:"Melena results from digested blood, typically indicating an upper GI bleed.",wrongRationale:"Black, tarry stool specifically indicates digested blood from an upper GI source."},
+{stem:"A client with a history of peptic ulcer disease develops sudden, severe abdominal pain with a rigid, board-like abdomen. What does the nurse suspect?",options:["Normal ulcer discomfort","Perforation with peritonitis","Simple constipation","Gastroenteritis"],correct:1,rationale:"Sudden severe pain with a rigid abdomen suggests perforation and resulting peritonitis.",wrongRationale:"A rigid, board-like abdomen with sudden severe pain is a classic sign of perforation, not routine discomfort."},
+{stem:"A client reports pain that began near the umbilicus and has migrated to the right lower quadrant, with rebound tenderness. What does the nurse suspect?",options:["Diverticulitis","Appendicitis","Cholecystitis","Gastritis"],correct:1,rationale:"Pain migrating to the right lower quadrant with rebound tenderness is classic for appendicitis.",wrongRationale:"Migration to the right lower quadrant with rebound tenderness is the classic appendicitis presentation."},
+{stem:"Which finding is expected early in a mechanical bowel obstruction?",options:["Absent flatus, abdominal distention, and high-pitched bowel sounds","Loose, frequent stools","Decreased abdominal girth","Normal bowel sounds throughout"],correct:0,rationale:"Early bowel obstruction typically presents with absent flatus, distention, and high-pitched bowel sounds.",wrongRationale:"These are the expected early findings in mechanical obstruction, not loose stools or normal sounds."},
+{stem:"Which method is most reliable for confirming correct nasogastric tube placement before feeding?",options:["Auscultating air insufflation only","X-ray confirmation and pH testing of aspirate","Asking the client if it feels correctly placed","Observing for coughing during insertion only"],correct:1,rationale:"X-ray remains the gold standard for placement confirmation, supplemented by pH testing.",wrongRationale:"Air auscultation alone is not considered reliable; X-ray with pH testing is the recommended approach."},
+{stem:"Which feature helps distinguish Crohn's disease from ulcerative colitis?",options:["Crohn's disease can affect any part of the GI tract in patchy 'skip lesions'; ulcerative colitis is continuous and limited to the colon","Ulcerative colitis affects the entire GI tract; Crohn's is limited to the rectum","Both conditions are identical in presentation","Crohn's disease never causes diarrhea"],correct:0,rationale:"Crohn's causes patchy, transmural inflammation anywhere in the GI tract; ulcerative colitis is continuous and colon-limited.",wrongRationale:"This is the reverse of the correct distinction between the two conditions."},
+{stem:"When teaching a client with a new ileostomy, which instruction is important?",options:["Expect formed, solid stool output","Monitor output closely and report signs of dehydration","Fluid intake should be minimized","No dietary changes are ever needed"],correct:1,rationale:"Ileostomy output is liquid, placing clients at higher risk for dehydration and electrolyte imbalance.",wrongRationale:"Because output remains liquid, dehydration risk is high — monitoring and hydration are essential, not minimized."}
+]},
+"NURS-355":{name:"Pharmacology & Dosage Calculation",desc:"High-alert medications and safe dosage math under pressure.",questions:[
+{stem:"An order reads heparin 800 units/hr. The bag is mixed as 25,000 units in 250 mL. What rate should the pump be set to, in mL/hr?",options:["6 mL/hr","8 mL/hr","10 mL/hr","12 mL/hr"],correct:1,rationale:"25,000 units ÷ 250 mL = 100 units/mL. 800 units/hr ÷ 100 units/mL = 8 mL/hr.",wrongRationale:"The concentration is 100 units/mL; dividing the ordered dose by that concentration gives 8 mL/hr."},
+{stem:"Which lab value must be monitored to assess therapeutic effect of warfarin?",options:["aPTT","INR","Platelet count alone","Hemoglobin A1c"],correct:1,rationale:"Warfarin therapy is monitored using INR, while heparin is monitored via aPTT.",wrongRationale:"INR is specific to warfarin monitoring; aPTT is used for heparin instead."},
+{stem:"A client is prescribed insulin lispro at 0800 with breakfast served at 0830. Is this timing appropriate?",options:["No — lispro should be given at least 1 hour before eating","Yes — lispro is given within 15 minutes of a meal","No — lispro should be given 30 minutes after eating","It does not matter when lispro is given"],correct:1,rationale:"Rapid-acting insulin like lispro is given within about 15 minutes before a meal.",wrongRationale:"Lispro's fast onset means it should be given close to mealtime, not an hour before or after."},
+{stem:"Which lab value should be checked before administering digoxin?",options:["Serum potassium","Serum glucose","Hemoglobin","Platelet count"],correct:0,rationale:"Hypokalemia increases the risk of digoxin toxicity, so potassium should be checked before administration.",wrongRationale:"Low potassium significantly increases digoxin toxicity risk, making it the critical lab to check."},
+{stem:"Which class of medications requires an independent double-check by a second nurse before administration in most facilities?",options:["Oral antibiotics","Stool softeners","High-alert medications such as insulin and heparin","Multivitamins"],correct:2,rationale:"High-alert medications carry heightened risk of harm if given incorrectly, requiring independent double-checks.",wrongRationale:"High-alert medications carry the greatest risk of serious harm from error, unlike routine medications."},
+{stem:"A pediatric client weighs 20 kg. The ordered dose is 5 mg/kg. How many mg should the nurse administer?",options:["50 mg","100 mg","20 mg","150 mg"],correct:1,rationale:"20 kg × 5 mg/kg = 100 mg.",wrongRationale:"Multiplying the client's weight by the ordered dose per kilogram gives 100 mg."},
+{stem:"Which client teaching point is correct regarding antibiotic therapy?",options:["Stop taking the medication once symptoms improve","Complete the full prescribed course even if feeling better","Share leftover antibiotics with family if they get sick","Double the next dose if one is missed"],correct:1,rationale:"Completing the full course prevents recurrence and reduces the risk of antibiotic resistance.",wrongRationale:"Stopping early, sharing medication, or doubling doses all increase risk; completing the full course is correct."},
+{stem:"Which medication is the antidote for an opioid overdose?",options:["Flumazenil","Naloxone","Protamine sulfate","Vitamin K"],correct:1,rationale:"Naloxone reverses opioid-induced respiratory depression.",wrongRationale:"Naloxone specifically reverses opioids; flumazenil reverses benzodiazepines, and protamine reverses heparin."},
+{stem:"A client newly prescribed an ACE inhibitor should be taught to report which symptom?",options:["Mild drowsiness","A persistent dry cough","Increased appetite","Improved energy level"],correct:1,rationale:"A persistent dry cough is a common ACE inhibitor side effect that should be reported.",wrongRationale:"A persistent dry cough is a well-known ACE inhibitor side effect; the other options aren't expected effects."},
+{stem:"A client taking warfarin also regularly takes ibuprofen for joint pain. What is the nurse's primary concern?",options:["No interaction of concern","Increased risk of bleeding","Decreased effectiveness of warfarin","Increased risk of blood clots"],correct:1,rationale:"NSAIDs increase bleeding risk when combined with anticoagulants due to additive effects.",wrongRationale:"Combining an NSAID with an anticoagulant increases bleeding risk — it does not reduce warfarin's effect."}
+]},
+"NURS-362":{name:"Immune, Hematologic & Infectious Disease",desc:"Hepatitis differentiation, sepsis, clotting and immune disorders.",questions:[
+{stem:"Which statement accurately differentiates Hepatitis B from Hepatitis C?",options:["Hepatitis C progresses to chronic infection more often than Hepatitis B in adults","Hepatitis B has no vaccine available","Hepatitis C is spread primarily by the fecal-oral route","Hepatitis B cannot become a chronic infection"],correct:0,rationale:"Hepatitis C has a higher rate of progression to chronic infection in adults compared with Hepatitis B, which has an effective vaccine.",wrongRationale:"Hepatitis C is more likely to become chronic in adults than Hepatitis B; a vaccine exists for Hepatitis B, and both are bloodborne, not fecal-oral."},
+{stem:"A client meets two SIRS criteria and has a suspected infection source. What is the nurse's priority concern?",options:["Mild seasonal allergies","Possible sepsis requiring prompt intervention","A routine post-op recovery finding","No action needed until three criteria are met"],correct:1,rationale:"Two or more SIRS criteria with a suspected infection source raises concern for sepsis.",wrongRationale:"Meeting SIRS criteria with a suspected infection source is an early sepsis warning sign requiring prompt action."},
+{stem:"Which lab finding is expected in a client with disseminated intravascular coagulation (DIC)?",options:["Elevated platelets and normal fibrinogen","Low platelets, low fibrinogen, and elevated D-dimer","Elevated hemoglobin only","Normal coagulation studies"],correct:1,rationale:"DIC consumes clotting factors and platelets, producing low platelets, low fibrinogen, and elevated D-dimer.",wrongRationale:"DIC causes consumption of clotting factors and platelets, not elevated platelets or normal studies."},
+{stem:"Which instruction is appropriate for a client on neutropenic precautions?",options:["Avoid fresh flowers and raw fruits or vegetables","Encourage visits from anyone who feels well","No special precautions are needed","Encourage a high-raw-food diet to boost immunity"],correct:0,rationale:"Neutropenic clients are taught to avoid sources of bacteria and mold, including fresh flowers and raw produce.",wrongRationale:"Neutropenic precautions specifically limit exposure to bacteria and mold sources, unlike the other options."},
+{stem:"A client develops sudden hives, wheezing, and hypotension after a medication is administered. What is the nurse's priority action?",options:["Administer an oral antihistamine and monitor","Administer epinephrine intramuscularly and call for help","Document the reaction for later follow-up","Reassess in 15 minutes before intervening"],correct:1,rationale:"Anaphylaxis is life-threatening; epinephrine IM is first-line treatment given immediately.",wrongRationale:"Anaphylaxis requires immediate epinephrine, not an oral antihistamine or delayed reassessment."},
+{stem:"A client receiving a blood transfusion develops chills, back pain, and fever. What is the nurse's priority action?",options:["Slow the infusion rate and monitor","Stop the transfusion immediately and keep the IV line open with saline","Administer acetaminophen and continue the transfusion","Document and continue at the same rate"],correct:1,rationale:"Signs of a transfusion reaction require immediately stopping the transfusion and keeping IV access open.",wrongRationale:"Any suspected transfusion reaction requires stopping the infusion immediately, not slowing or continuing it."},
+{stem:"A client with HIV has a CD4 count of 180 cells/mm³. What is the nurse's priority concern?",options:["No particular concern at this level","Increased risk for opportunistic infections","Improved immune function","Risk of hypertension"],correct:1,rationale:"A CD4 count below 200 cells/mm³ places a client at significant risk for opportunistic infections.",wrongRationale:"A CD4 count this low indicates significant immunosuppression and high infection risk, not improved status."},
+{stem:"Which interventions are priorities during a vaso-occlusive sickle cell crisis?",options:["Fluid restriction and cold compresses","Hydration, oxygen, and pain management","Strict bed rest with no analgesia","Withholding fluids until pain resolves"],correct:1,rationale:"Sickle cell crisis management focuses on hydration, oxygen, and aggressive pain control.",wrongRationale:"Hydration, oxygen, and pain management are core priorities; fluid restriction can worsen a crisis."},
+{stem:"Which teaching point is important for a client with systemic lupus erythematosus?",options:["Increase direct sun exposure to boost vitamin D","Use sun protection, as sunlight can trigger flares","No lifestyle modifications are needed","Avoid all forms of exercise permanently"],correct:1,rationale:"Photosensitivity is common in lupus, and UV exposure can trigger disease flares.",wrongRationale:"Sun exposure is a known trigger for lupus flares, so protection is correct, not increased exposure."},
+{stem:"Which precaution type is required for a client with suspected active tuberculosis?",options:["Standard precautions only","Airborne precautions with an N95 respirator and negative-pressure room","Contact precautions only","Droplet precautions with a surgical mask"],correct:1,rationale:"TB is spread via airborne droplet nuclei and requires airborne precautions.",wrongRationale:"TB specifically requires airborne precautions, not standard, contact, or droplet-level precautions alone."}
+]},
+"NURS-370":{name:"Musculoskeletal & Integumentary",desc:"Fractures, wound care, and pressure injury staging.",questions:[
+{stem:"A client with a new leg cast reports increasing pain unrelieved by medication, along with numbness and pallor of the toes. What does the nurse suspect?",options:["Normal post-casting discomfort","Compartment syndrome","Superficial itching under the cast","Expected swelling with no concern"],correct:1,rationale:"Increasing pain unrelieved by medication with numbness and pallor are hallmark signs of compartment syndrome.",wrongRationale:"Pain unrelieved by medication with numbness and pallor is the classic compartment syndrome presentation."},
+{stem:"Which characteristic identifies a Stage 3 pressure injury?",options:["Intact skin with non-blanchable redness","Full-thickness skin loss with visible subcutaneous fat, but no exposed bone, tendon, or muscle","Partial-thickness skin loss with a shallow open ulcer","Exposed bone, tendon, or muscle"],correct:1,rationale:"Stage 3 involves full-thickness tissue loss with visible fat but without exposed bone, tendon, or muscle.",wrongRationale:"This defines Stage 3; the other descriptions match Stage 1, Stage 2, and Stage 4."},
+{stem:"Following a posterior approach hip replacement, which positioning instruction helps prevent dislocation?",options:["Cross the legs when sitting for comfort","Avoid hip flexion beyond 90 degrees and avoid internal rotation or adduction","Sit on low chairs to reduce strain","No positioning restrictions are needed"],correct:1,rationale:"Avoiding excessive hip flexion, adduction, and internal rotation reduces prosthetic hip dislocation risk.",wrongRationale:"These restrictions prevent dislocation; crossing legs or sitting low would increase dislocation risk."},
+{stem:"A client has burns to the face with singed nasal hair and soot around the mouth. What is the nurse's priority concern?",options:["Cosmetic scarring","Potential airway compromise from inhalation injury","Fluid loss calculation only","Pain management"],correct:1,rationale:"Facial burns with singed nasal hair and soot suggest possible inhalation injury.",wrongRationale:"Signs of inhalation injury make airway compromise the immediate life-threatening concern."},
+{stem:"Which teaching point is appropriate for a client with osteoporosis?",options:["Avoid all weight-bearing activity","Engage in regular weight-bearing exercise and ensure adequate calcium and vitamin D intake","Increase caffeine and reduce dairy intake","Bed rest is recommended to prevent fractures"],correct:1,rationale:"Weight-bearing exercise with adequate calcium and vitamin D supports bone density.",wrongRationale:"Weight-bearing activity and adequate calcium/vitamin D actively support bone health; avoiding activity would worsen bone loss."},
+{stem:"When caring for a client in skeletal traction, which principle is essential?",options:["Weights should rest on the floor for stability","Weights should hang freely without touching the floor or bed","Traction can be released periodically for comfort","Alignment does not need to be maintained continuously"],correct:1,rationale:"Weights must hang freely to maintain continuous, effective traction.",wrongRationale:"Traction depends on weights hanging freely; resting them on a surface disrupts alignment and effectiveness."},
+{stem:"A nurse notices a surgical incision has separated with visible underlying tissue. What is the priority action?",options:["Push the tissue back into the incision","Cover the area with a sterile saline-soaked dressing and notify the provider","Apply a dry dressing and continue routine care","Leave it uncovered to air out"],correct:1,rationale:"Wound dehiscence requires covering exposed tissue with a sterile saline dressing and immediate notification.",wrongRationale:"Covering with a sterile saline dressing prevents contamination — pushing tissue back or leaving it uncovered risks infection."},
+{stem:"Which dietary teaching is appropriate for a client with gout?",options:["Increase intake of organ meats and shellfish","Limit purine-rich foods such as organ meats, shellfish, and red meat","No dietary changes are needed","Increase alcohol intake for pain relief"],correct:1,rationale:"Purine-rich foods increase uric acid production, worsening gout.",wrongRationale:"Purine-rich foods and alcohol both raise uric acid levels and worsen gout."},
+{stem:"Which feature helps distinguish rheumatoid arthritis from osteoarthritis?",options:["RA typically causes symmetric small-joint involvement with morning stiffness lasting over an hour","OA is an autoimmune condition affecting multiple organ systems","RA improves with joint use throughout the day","OA classically causes symmetric small-joint swelling"],correct:0,rationale:"RA is an autoimmune, symmetric, small-joint disease with prolonged morning stiffness.",wrongRationale:"Symmetric small-joint involvement with prolonged morning stiffness is characteristic of RA, not OA."},
+{stem:"When assessing skin integrity in a client with darkly pigmented skin, which approach is most reliable for detecting early pressure injury?",options:["Relying on visible redness alone","Assessing for changes in skin temperature, texture, and firmness compared to surrounding skin","Skipping skin assessment since color changes can't be seen","Assessing only bony prominences visible under bright light"],correct:1,rationale:"In darker skin tones, temperature, texture, and firmness changes are more reliable early indicators than visible redness.",wrongRationale:"Because redness may not be visible on darker skin, temperature, texture, and firmness changes are the more reliable method."}
+]},
+"NURS-378":{name:"Mental Health & Psychiatric Nursing",desc:"Therapeutic communication, mood and thought disorders, and de-escalation.",questions:[
+{stem:"A client says, \"I won't be a burden much longer.\" What is the nurse's priority response?",options:["\"Try to stay positive — things will get better.\"","\"What do you mean by that?\"","\"I'm sure your family doesn't see you as a burden.\"","Change the subject to something less distressing"],correct:1,rationale:"Direct, open-ended follow-up is the priority when a client makes a statement suggesting suicidal ideation.",wrongRationale:"This statement requires direct follow-up to assess for suicidal ideation — reassurance and deflection risk missing a safety concern."},
+{stem:"Which nursing response demonstrates therapeutic communication with a distressed client?",options:["\"Everything happens for a reason.\"","\"It sounds like this has been really difficult for you — tell me more.\"","\"You shouldn't feel that way.\"","\"Let's talk about something more pleasant.\""],correct:1,rationale:"Reflecting feelings and inviting elaboration is a core therapeutic communication technique.",wrongRationale:"Reflective, open-ended responses build trust; clichés, judgment, and deflection all shut communication down."},
+{stem:"A client with acute mania is pacing rapidly and speaking loudly to other clients. What is the nurse's priority intervention?",options:["Encourage the client to join a large group activity","Reduce environmental stimulation and redirect to a calmer space","Ignore the behavior until it escalates further","Restrain the client immediately"],correct:1,rationale:"Reducing stimulation and redirecting to a quieter environment helps de-escalate mania without premature restraint.",wrongRationale:"Reducing stimulation is the least restrictive, most effective first step; large groups would increase stimulation."},
+{stem:"Which symptom is most characteristic of major depressive disorder?",options:["Anhedonia — loss of interest or pleasure in previously enjoyed activities","Excessive energy and euphoria","Grandiose beliefs about one's abilities","Rapid, pressured speech"],correct:0,rationale:"Anhedonia is a core diagnostic symptom of major depressive disorder.",wrongRationale:"Anhedonia is a hallmark depressive symptom; the other options are associated with mania, not depression."},
+{stem:"A client is experiencing a panic attack with hyperventilation and a feeling of impending doom. What is the nurse's priority action?",options:["Leave the client alone to calm down independently","Stay with the client and speak in a calm, reassuring manner","Immediately administer PRN medication without further assessment","Encourage vigorous physical activity"],correct:1,rationale:"Staying with the client and providing calm reassurance reduces fear and helps de-escalate the panic response.",wrongRationale:"A client in acute panic should not be left alone; calm presence and reassurance are the priority."},
+{stem:"A client with schizophrenia states they are hearing voices telling them to hide. How should the nurse respond?",options:["Argue that the voices are not real","Acknowledge the client's experience is real to them while gently orienting to reality and assessing safety","Ignore the statement entirely","Agree that the voices are giving good advice"],correct:1,rationale:"Acknowledging the client's experience without reinforcing the hallucination respects the client while assessing safety.",wrongRationale:"Arguing or agreeing with hallucination content are both unhelpful; acknowledging while assessing safety is therapeutic."},
+{stem:"A client with borderline personality disorder repeatedly says one nurse is 'the only one who understands' while criticizing other staff. What does this reflect, and how should staff respond?",options:["This is a compliment and should be reinforced","This reflects splitting; staff should maintain consistent, unified boundaries","This means the other staff are providing poor care","No response is needed since it is not clinically significant"],correct:1,rationale:"Splitting is common in borderline personality disorder; consistent, unified limits across the care team help manage it.",wrongRationale:"This pattern reflects splitting rather than genuine feedback; the therapeutic response is unified boundaries, not reinforcing the split."},
+{stem:"A client in alcohol withdrawal should be monitored closely for which serious complication?",options:["Mild insomnia only","Seizures and delirium tremens","Improved appetite","Decreased heart rate"],correct:1,rationale:"Alcohol withdrawal carries a risk of seizures and delirium tremens, both potentially life-threatening.",wrongRationale:"Seizures and delirium tremens are the serious complications requiring close monitoring, not the milder findings listed."},
+{stem:"Which approach best supports a therapeutic milieu on an inpatient psychiatric unit?",options:["Frequently changing rules based on staff preference","Consistent structure, clear expectations, and unified limit-setting","Allowing clients to set their own unit rules with no structure","Minimal staff interaction with clients"],correct:1,rationale:"A therapeutic milieu relies on consistent structure and unified limit-setting across staff.",wrongRationale:"Consistency and unified limits create the safety a therapeutic milieu depends on; inconsistent rules undermine it."},
+{stem:"A client on a long-term antipsychotic should be monitored for which adverse effect?",options:["Improved fine motor control","Extrapyramidal symptoms and tardive dyskinesia","Increased appetite suppression only","No monitoring is needed long-term"],correct:1,rationale:"Antipsychotics carry a risk of extrapyramidal symptoms and long-term tardive dyskinesia.",wrongRationale:"These are well-documented long-term antipsychotic risks that require ongoing assessment."}
+]},
+"NURS-385":{name:"Pediatric Nursing",desc:"Growth and development, pediatric dosing, and family-centered care.",questions:[
+{stem:"A 2-year-old's weight-based medication dose is calculated as 45 mg. The available concentration is 15 mg/5 mL. How many mL should the nurse administer?",options:["10 mL","15 mL","5 mL","20 mL"],correct:1,rationale:"45 mg ÷ 15 mg × 5 mL = 15 mL.",wrongRationale:"Dividing the ordered dose by the concentration and multiplying by the volume gives 15 mL."},
+{stem:"Which finding in an infant suggests significant dehydration requiring prompt follow-up?",options:["Six wet diapers in the past 24 hours","Sunken fontanel and absence of tears when crying","Normal skin turgor","Active, alert behavior"],correct:1,rationale:"A sunken fontanel and absent tears are signs of significant dehydration in infants.",wrongRationale:"Sunken fontanel and absent tears are hallmark dehydration signs; the other findings suggest adequate hydration."},
+{stem:"Which approach is most developmentally appropriate when preparing a school-age child for a procedure?",options:["Give a vague explanation right before the procedure begins","Provide a concrete, honest explanation in advance and offer simple choices when possible","Avoid any explanation to prevent anxiety","Explain using complex medical terminology"],correct:1,rationale:"School-age children benefit from concrete, honest explanations given in advance with some sense of control.",wrongRationale:"Concrete advance explanations support a school-age child's developmental need for understanding and control."},
+{stem:"Which car seat guidance is currently recommended for infants and toddlers?",options:["Forward-facing starting at 6 months","Rear-facing until reaching the seat's height or weight limit, typically well past age 2","No car seat needed after age 1","Booster seat starting at birth"],correct:1,rationale:"Current guidance recommends keeping children rear-facing as long as possible within the seat's limits.",wrongRationale:"Rear-facing as long as possible is current best-practice guidance, not an early switch to forward-facing."},
+{stem:"A toddler has a febrile seizure lasting under 2 minutes. What is the nurse's priority action during the seizure?",options:["Restrain the child's movements","Protect the child from injury and place them on their side","Insert an oral airway during the seizure","Give antipyretics immediately during the seizure"],correct:1,rationale:"Most febrile seizures are brief and self-limiting; the priority is protecting from injury and side-lying positioning.",wrongRationale:"Protecting from injury and side-lying positioning are the priority; restraining or inserting objects are unsafe."},
+{stem:"A child presents with drooling, a muffled voice, high fever, and tripod positioning. What should the nurse avoid doing?",options:["Keeping the child calm and upright","Examining the throat with a tongue depressor","Notifying the provider immediately","Preparing for possible emergency airway management"],correct:1,rationale:"These findings suggest epiglottitis; examining the throat can trigger complete airway obstruction.",wrongRationale:"Throat examination can precipitate complete airway obstruction in suspected epiglottitis and must be avoided."},
+{stem:"Which pain assessment tool is most appropriate for a preverbal toddler?",options:["Numeric 0–10 self-report scale","FLACC behavioral pain scale","Verbal descriptor scale requiring the child to describe pain in words","Adult-only pain assessment tools"],correct:1,rationale:"The FLACC scale assesses pain behaviorally and is appropriate for preverbal or nonverbal children.",wrongRationale:"Preverbal children cannot reliably use self-report or verbal scales; FLACC is designed for this age group."},
+{stem:"Which finding should raise concern for failure to thrive in an infant?",options:["Weight tracking steadily along the growth curve","Weight consistently falling below the 5th percentile or crossing two major percentile lines downward","Normal developmental milestones","Age-appropriate feeding patterns"],correct:1,rationale:"A significant drop in growth percentile is a key indicator used to identify failure to thrive.",wrongRationale:"A significant downward crossing of growth percentiles is the recognized indicator, not steady growth or normal milestones."},
+{stem:"Which teaching point reduces the risk of Sudden Infant Death Syndrome (SIDS)?",options:["Place the infant on their stomach to sleep","Place the infant on their back to sleep on a firm surface with no loose bedding","Use soft bedding and pillows for comfort","Allow the infant to sleep in the same bed as parents"],correct:1,rationale:"Back-sleeping on a firm surface without loose bedding is the core evidence-based recommendation for reducing SIDS risk.",wrongRationale:"Stomach sleeping, soft bedding, and bed-sharing all increase SIDS risk."},
+{stem:"Which statement by a parent indicates a need for further teaching about childhood immunizations?",options:["\"I'll keep a record of each vaccine my child receives.\"","\"I can stop vaccines once my child seems healthy.\"","\"I'll ask the provider about the recommended schedule.\"","\"I understand some mild soreness at the injection site is normal.\""],correct:1,rationale:"Vaccination schedules are age-based, not tied to current symptom-free status.",wrongRationale:"Vaccines follow an age-based schedule regardless of how healthy the child currently appears."}
+]},
+"NURS-392":{name:"Leadership, Prioritization & Delegation",desc:"Assignment logic, scope of practice, and multi-client prioritization.",questions:[
+{stem:"Which task is appropriate to delegate to unlicensed assistive personnel (UAP)?",options:["Assessing a new admission's baseline condition","Ambulating a stable postoperative client per the care plan","Administering a scheduled oral medication","Teaching a client about a new diagnosis"],correct:1,rationale:"Ambulating a stable client per an established care plan is within UAP scope.",wrongRationale:"Assessment, medication administration, and teaching require licensed nursing judgment, unlike ambulation of a stable client."},
+{stem:"A charge nurse is assigning clients for the shift. Which client should be assigned to the most experienced RN?",options:["A stable client awaiting discharge teaching","A client with a new, unstable arrhythmia requiring frequent assessment","A client scheduled for a routine dressing change","A client requesting meal preferences"],correct:1,rationale:"The most complex, unstable client should be assigned to the most experienced RN.",wrongRationale:"Complexity and instability determine assignment priority; the unstable arrhythmia client requires the most experienced RN."},
+{stem:"Two clients need the nurse's attention at the same time: one reports new chest pain, the other needs help getting to the bathroom. Which should the nurse address first?",options:["The bathroom request, since it is more urgent to the client","The chest pain, following the ABC/urgency prioritization framework","Whichever client called first, regardless of symptoms","Neither — wait for assistance"],correct:1,rationale:"New chest pain represents a potential life-threatening event and takes priority.",wrongRationale:"Acuity, not order of request, determines priority — new chest pain must be addressed first."},
+{stem:"Which of the 'five rights' of delegation includes evaluating whether the UAP has the training to safely perform the task?",options:["Right task","Right circumstance","Right person","Right supervision"],correct:2,rationale:"'Right person' involves confirming the individual has appropriate skills and training for the task.",wrongRationale:"'Right person' specifically addresses qualification and training; the other rights address different aspects of delegation."},
+{stem:"Which task falls within an LPN/LVN's scope of practice in most settings?",options:["Performing the initial comprehensive admission assessment","Administering routine oral and IM medications to a stable client","Developing the client's initial plan of care","Delegating tasks to unlicensed assistive personnel"],correct:1,rationale:"LPNs/LVNs can typically administer routine medications to stable clients.",wrongRationale:"Initial comprehensive assessment, care planning, and delegation are generally RN responsibilities."},
+{stem:"Which information is most essential to include in a change-of-shift SBAR report?",options:["The client's favorite hobbies","Current condition, recent changes, and pending tasks or orders","The client's insurance provider","Unrelated details about other clients"],correct:1,rationale:"SBAR reporting prioritizes current condition, recent changes, and pending care needs.",wrongRationale:"Current condition, changes, and pending tasks are the safety-critical elements of SBAR handoff."},
+{stem:"Two staff members are in a disagreement about client care in front of the client. What is the most appropriate action?",options:["Continue the disagreement to resolve it quickly","Address the disagreement privately and professionally away from the client","Let the client decide who is right","Ignore the conflict entirely"],correct:1,rationale:"Professional disagreements should be addressed privately to maintain client confidence in the care team.",wrongRationale:"Discussing disagreements in front of the client undermines trust; the professional approach is to step away and resolve it privately."},
+{stem:"What is the primary purpose of completing an incident report after a client fall?",options:["To serve as part of the client's permanent medical record","To support quality improvement and identify system-level prevention strategies","To assign blame to the nurse involved","To avoid documenting the fall in the medical record"],correct:1,rationale:"Incident reports are a quality and risk-management tool used to prevent future events.",wrongRationale:"Incident reports drive quality improvement and are separate from the medical record — they are not meant to assign blame."},
+{stem:"A nurse feels an assigned client load is unsafe given the acuity of the clients. What is the most appropriate first action?",options:["Refuse the assignment outright and leave the unit","Voice the concern through the appropriate chain of command while continuing to provide safe care","Say nothing and hope for the best","Ask a UAP to take over full responsibility for the unsafe assignment"],correct:1,rationale:"Raising concerns through the proper chain of command addresses the issue while ensuring clients still receive care.",wrongRationale:"Refusing outright or abandoning clients isn't appropriate; voicing concern through the chain of command is correct."},
+{stem:"When prioritizing care based on Maslow's hierarchy of needs, which client need should generally be addressed first?",options:["A client's need for social interaction","A client's physiological need, such as oxygenation","A client's need for esteem-building feedback","A client's need for self-actualization discussions"],correct:1,rationale:"Physiological needs form the base of Maslow's hierarchy and are prioritized before higher-level needs.",wrongRationale:"Physiological needs take priority over social, esteem, or self-actualization needs."}
+]}
+};
+
+/* ---------------- ROUTER ---------------- */
+function navigateTo(page, params = {}) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'course') renderCourse(params.code);
+  if (page === 'checkout') renderCheckout(params.plan, params.code, params.name);
+  if (page === 'portal') renderPortal();
+  if (page === 'home' && params.anchor) {
+    setTimeout(() => { const el = document.getElementById(params.anchor); if (el) el.scrollIntoView({behavior:'smooth'}); }, 30);
+  }
+}
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-nav]');
+  if (!el) return;
+  e.preventDefault();
+  navigateTo(el.dataset.nav, { anchor: el.dataset.anchor, code: el.dataset.code, plan: el.dataset.plan, name: el.dataset.name });
+});
+
+/* ---------------- CATALOG RENDERING ---------------- */
+function buildCatalogRow(code, c) {
+  const row = document.createElement('div');
+  row.className = 'catalog-row';
+  row.dataset.nav = 'course';
+  row.dataset.code = code;
+  row.innerHTML = `<div class="course-code">${code}</div><div><div class="course-name">${c.name}</div><div class="course-desc">${c.desc}</div></div><div class="course-credits">${c.questions.length} ITEMS</div><div class="arrow">→</div>`;
+  return row;
+}
+const homeCatalogList = document.getElementById('homeCatalogList');
+const fullCatalogList = document.getElementById('fullCatalogList');
+Object.entries(courses).forEach(([code, c]) => {
+  homeCatalogList.appendChild(buildCatalogRow(code, c));
+  fullCatalogList.appendChild(buildCatalogRow(code, c));
+});
+
+/* ---------------- COURSE DETAIL + PER-DEPARTMENT QUIZ ---------------- */
+let deptState = { code:null, current:0, score:0, questions:[] };
+
+const FREE_PREVIEW_COUNT = 3; // items visible before enrollment gate kicks in
+const PLANNED_TOTAL = 100;    // marketed target size per department
+
+function renderCourse(code) {
+  code = code || 'NURS-301';
+  const c = courses[code] || courses['NURS-301'];
+  const unlocked = isDeptUnlocked(code);
+  document.getElementById('deptCode').textContent = code;
+  document.getElementById('deptName').textContent = c.name;
+  document.getElementById('deptDesc').textContent = c.desc;
+  document.getElementById('crumbName').textContent = c.name;
+  document.getElementById('statItems').textContent = `${c.questions.length} live now (of ${PLANNED_TOTAL} planned)`;
+
+  const btn = document.getElementById('courseEnrollBtn');
+  const resultsBtn = document.getElementById('deptResultsEnroll');
+  if (unlocked) {
+    btn.textContent = '✓ Enrolled — Full Access';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'default';
+    resultsBtn.textContent = 'Back to Catalog';
+    resultsBtn.onclick = () => navigateTo('catalog');
+  } else {
+    btn.textContent = 'Enroll in This Department';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+    btn.onclick = () => navigateTo('checkout', { plan:'single', code, name:c.name });
+    resultsBtn.textContent = 'Enroll in This Department';
+    resultsBtn.onclick = () => navigateTo('checkout', { plan:'single', code, name:c.name });
+  }
+
+  deptState = { code, current:0, score:0, questions:c.questions, unlocked };
+  const progress = document.getElementById('deptProgress');
+  progress.innerHTML = '';
+  c.questions.forEach(() => progress.appendChild(document.createElement('div')));
+  document.getElementById('deptResults').classList.remove('show');
+  document.getElementById('deptQuizArea').style.display = 'block';
+  renderDeptQuestion(0);
+}
+
+function renderDeptQuestion(i) {
+  const area = document.getElementById('deptQuizArea');
+  const locked = !deptState.unlocked && i >= FREE_PREVIEW_COUNT;
+
+  if (locked) {
+    area.innerHTML = `
+      <div class="lock-card">
+        <div class="lock-icon">🔒</div>
+        <h3>${FREE_PREVIEW_COUNT} free items complete</h3>
+        <p>You've previewed this department's first ${FREE_PREVIEW_COUNT} items. Enroll to unlock the rest of the bank and everything added to it going forward.</p>
+        <button class="btn-gold" id="lockEnrollBtn">Enroll in This Department — $27</button>
+      </div>`;
+    document.getElementById('lockEnrollBtn').onclick = () =>
+      navigateTo('checkout', { plan:'single', code: deptState.code, name: courses[deptState.code].name });
+    return;
+  }
+
+  const q = deptState.questions[i];
+  area.innerHTML = `
+    <div class="assessment">
+      <div class="assessment-head"><span class="cap">${deptState.code} · Item ${i+1} of ${deptState.questions.length}</span><span class="grade-stamp" id="dGradeStamp">Ungraded</span></div>
+      <div class="assessment-body">
+        <p class="assess-stem">${q.stem}</p>
+        <div class="assess-options" id="dOptions">${q.options.map((o, idx) => `<button class="aopt" data-idx="${idx}">${o}</button>`).join('')}</div>
+        <div class="arationale" id="dRationale"></div>
+        <button class="btn-gold next-btn" id="dNextBtn">${i === deptState.questions.length - 1 ? 'See Results →' : 'Next Item →'}</button>
+      </div>
+    </div>`;
+  const opts = area.querySelectorAll('.aopt');
+  const rationale = document.getElementById('dRationale');
+  const stamp = document.getElementById('dGradeStamp');
+  const nextBtn = document.getElementById('dNextBtn');
+  opts.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      const idx = parseInt(btn.dataset.idx);
+      const isCorrect = idx === q.correct;
+      opts.forEach(b => b.disabled = true);
+      opts.forEach(b => { if (parseInt(b.dataset.idx) === q.correct) b.classList.add('correct'); else if (b === btn) b.classList.add('wrong'); });
+      rationale.classList.add('show');
+      if (isCorrect) {
+        deptState.score++;
+        rationale.classList.remove('miss');
+        rationale.innerHTML = `<strong>Correct — Item Passed.</strong> ${q.rationale}`;
+        stamp.textContent = 'Passed'; stamp.style.color = '#E4CD94'; stamp.style.borderColor = '#E4CD94';
+      } else {
+        rationale.classList.add('miss');
+        rationale.innerHTML = `<strong>Incorrect — Review Required.</strong> ${q.wrongRationale}`;
+        stamp.textContent = 'Review Required'; stamp.style.color = '#D98B8B'; stamp.style.borderColor = '#D98B8B';
+      }
+      nextBtn.classList.add('show');
+      document.getElementById('deptProgress').children[i].classList.add('done');
+    });
+  });
+  nextBtn.addEventListener('click', () => {
+    if (i < deptState.questions.length - 1) { deptState.current++; renderDeptQuestion(deptState.current); }
+    else {
+      area.style.display = 'none';
+      document.getElementById('deptScoreText').textContent = `${deptState.score} / ${deptState.questions.length}`;
+      document.getElementById('deptResults').classList.add('show');
+    }
+  });
+}
+
+/* ---------------- CHECKOUT / STRIPE ---------------- */
+function renderCheckout(plan, code, name) {
+  const planName = document.getElementById('planName');
+  const planDesc = document.getElementById('planDesc');
+  const planPrice = document.getElementById('planPrice');
+  const totalPrice = document.getElementById('totalPrice');
+  document.getElementById('devWarning').classList.remove('show');
+  if (plan === 'single') {
+    const label = name || (courses[code] ? courses[code].name : 'Single Department');
+    planName.textContent = label;
+    planDesc.textContent = 'Full access to this department, lifetime';
+    planPrice.textContent = '$27';
+    totalPrice.textContent = '$27';
+  } else {
+    planName.textContent = 'Full Program';
+    planDesc.textContent = 'All fourteen departments, lifetime access';
+    planPrice.textContent = '$247';
+    totalPrice.textContent = '$247';
+  }
+  document.getElementById('stripeBtn').onclick = async () => {
+    const email = document.getElementById('checkoutEmail').value;
+    if (!email) { document.getElementById('checkoutEmail').focus(); return; }
+    const btn = document.getElementById('stripeBtn');
+    const originalText = btn.textContent;
+    btn.textContent = 'Connecting to Stripe…';
+    btn.disabled = true;
+    document.getElementById('devWarning').classList.remove('show');
+    try {
+      const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan, code, email })
+      });
+      if (!res.ok) throw new Error('Backend returned an error');
+      const data = await res.json();
+      window.location.href = data.url; // real Stripe-hosted Checkout page
+    } catch (err) {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      const w = document.getElementById('devWarning');
+      w.innerHTML = `⚠ <strong>Couldn't reach the payment backend.</strong> This site expects server.js running at <code>${API_BASE}</code> to create the Stripe session. See the setup instructions to start it.`;
+      w.classList.add('show');
+    }
+  };
+}
+
+/* ---------------- HOME DEMO QUIZ ---------------- */
+(function () {
+  const opts = document.querySelectorAll('#homeQuizOptions .aopt');
+  const rationale = document.getElementById('homeRationale');
+  const stamp = document.getElementById('homeGradeStamp');
+  opts.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      const isCorrect = btn.dataset.correct === 'true';
+      opts.forEach(b => b.disabled = true);
+      opts.forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); else if (b === btn) b.classList.add('wrong'); });
+      rationale.classList.add('show');
+      if (isCorrect) {
+        rationale.classList.remove('miss');
+        rationale.innerHTML = '<strong>Correct — Item Passed.</strong> Nausea and visual halos are early signs of digoxin toxicity.';
+        stamp.textContent = 'Passed'; stamp.style.color = '#E4CD94'; stamp.style.borderColor = '#E4CD94';
+      } else {
+        rationale.classList.add('miss');
+        rationale.innerHTML = '<strong>Incorrect — Review Required.</strong> Nausea + visual halo is classic digoxin toxicity.';
+        stamp.textContent = 'Review Required'; stamp.style.color = '#D98B8B'; stamp.style.borderColor = '#D98B8B';
+      }
+    });
+  });
+})();
+
+/* ---------------- FULL 5-QUESTION SAMPLE ASSESSMENT ---------------- */
+const sampleQuestions = [
+  courses["NURS-301"].questions[0],
+  courses["NURS-310"].questions[0],
+  courses["NURS-355"].questions[0],
+  courses["NURS-340"].questions[0],
+  courses["NURS-378"].questions[0]
+];
+let sCurrent = 0, sScore = 0;
+const quizArea = document.getElementById('quizArea');
+const progress = document.getElementById('progress');
+sampleQuestions.forEach(() => progress.appendChild(document.createElement('div')));
+
+function renderSampleQuestion(i) {
+  const q = sampleQuestions[i];
+  quizArea.innerHTML = `
+    <div class="assessment">
+      <div class="assessment-head"><span class="cap">Item ${i+1} of ${sampleQuestions.length}</span><span class="grade-stamp" id="qGradeStamp">Ungraded</span></div>
+      <div class="assessment-body">
+        <p class="assess-stem">${q.stem}</p>
+        <div class="assess-options" id="qOptions">${q.options.map((o, idx) => `<button class="aopt" data-idx="${idx}">${o}</button>`).join('')}</div>
+        <div class="arationale" id="qRationale"></div>
+        <button class="btn-gold next-btn" id="nextBtn">${i === sampleQuestions.length - 1 ? 'See Results →' : 'Next Item →'}</button>
+      </div>
+    </div>`;
+  const opts = quizArea.querySelectorAll('.aopt');
+  const rationale = document.getElementById('qRationale');
+  const stamp = document.getElementById('qGradeStamp');
+  const nextBtn = document.getElementById('nextBtn');
+  opts.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.disabled) return;
+      const idx = parseInt(btn.dataset.idx);
+      const isCorrect = idx === q.correct;
+      opts.forEach(b => b.disabled = true);
+      opts.forEach(b => { if (parseInt(b.dataset.idx) === q.correct) b.classList.add('correct'); else if (b === btn) b.classList.add('wrong'); });
+      rationale.classList.add('show');
+      if (isCorrect) {
+        sScore++;
+        rationale.classList.remove('miss');
+        rationale.innerHTML = `<strong>Correct — Item Passed.</strong> ${q.rationale}`;
+        stamp.textContent = 'Passed'; stamp.style.color = '#E4CD94'; stamp.style.borderColor = '#E4CD94';
+      } else {
+        rationale.classList.add('miss');
+        rationale.innerHTML = `<strong>Incorrect — Review Required.</strong> ${q.wrongRationale}`;
+        stamp.textContent = 'Review Required'; stamp.style.color = '#D98B8B'; stamp.style.borderColor = '#D98B8B';
+      }
+      nextBtn.classList.add('show');
+      progress.children[i].classList.add('done');
+    });
+  });
+  nextBtn.addEventListener('click', () => {
+    if (i < sampleQuestions.length - 1) { sCurrent++; renderSampleQuestion(sCurrent); }
+    else {
+      quizArea.style.display = 'none';
+      document.getElementById('scoreText').textContent = `${sScore} / ${sampleQuestions.length}`;
+      document.getElementById('results').classList.add('show');
+    }
+  });
+}
+document.querySelectorAll('[data-nav="assessment"]').forEach(el => el.addEventListener('click', () => {
+  sCurrent = 0; sScore = 0;
+  quizArea.style.display = 'block';
+  document.getElementById('results').classList.remove('show');
+  Array.from(progress.children).forEach(c => c.classList.remove('done'));
+  renderSampleQuestion(0);
+}));
+renderSampleQuestion(0);
+
+/* ---------------- CONTACT / PORTAL STUB FORMS ---------------- */
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  e.target.style.display = 'none';
+  document.getElementById('contactSent').style.display = 'block';
+});
+let portalSignedIn = false;
+let portalEmail = '';
+
+async function signInAndLoadEntitlements(email) {
+  portalEmail = email;
+  // NOTE: this only checks *what the email is entitled to* — it does not
+  // verify a password against anything, because there's no real user
+  // database here yet. Real accounts need actual credential checking on
+  // the backend; this is enough to demo entitlements flowing from a real
+  // Stripe payment through to the portal.
+  try {
+    const res = await fetch(`${API_BASE}/api/entitlements?email=${encodeURIComponent(email)}`);
+    if (res.ok) {
+      const data = await res.json();
+      enrollment.full = enrollment.full || data.full;
+      data.singles.forEach(code => { if (!enrollment.singles.includes(code)) enrollment.singles.push(code); });
+    }
+  } catch (err) {
+    console.warn('Could not reach backend for entitlements — is server.js running?');
+  }
+  portalSignedIn = true;
+  renderPortal();
+}
+
+document.getElementById('portalForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = e.target.querySelector('input[type=email]').value;
+  signInAndLoadEntitlements(email);
+});
+
+function renderPortal() {
+  const card = document.getElementById('portalCardInner');
+  if (!portalSignedIn) {
+    card.innerHTML = `
+      <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Student Portal</span></div>
+      <h2>Sign In</h2>
+      <form id="portalForm">
+        <label>Email</label><input type="email" required>
+        <label>Password</label><input type="password" required>
+        <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Sign In</button>
+      </form>
+      <p class="foot-link">Not enrolled yet? <a data-nav="home" data-anchor="tuition">View tuition options</a></p>`;
+    document.getElementById('portalForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = e.target.querySelector('input[type=email]').value;
+      signInAndLoadEntitlements(email);
+    });
+    return;
+  }
+
+  const enrolledCodes = enrollment.full ? Object.keys(courses) : enrollment.singles;
+  const hasAccess = enrolledCodes.length > 0;
+
+  card.innerHTML = `
+    <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Student Dashboard</span></div>
+    ${enrollment.full ? '<div class="portal-plan-badge">Full Program — All 14 Departments</div>' : ''}
+    ${hasAccess ? `
+      <div class="portal-dept-list">
+        ${enrolledCodes.map(code => `
+          <div class="portal-dept-row" data-nav="course" data-code="${code}">
+            <div><div class="portal-dept-name">${courses[code].name}</div><div class="portal-dept-sub">${courses[code].questions.length} items unlocked</div></div>
+            <div class="arrow">→</div>
+          </div>`).join('')}
+      </div>
+    ` : `
+      <p style="color:var(--ink-dim);font-size:0.88rem;line-height:1.6;margin-bottom:18px;">You're signed in, but no departments are enrolled yet on this session.</p>
+      <button class="btn-gold" style="width:100%;" data-nav="home" data-anchor="tuition">View Tuition Options</button>
+    `}
+    <p class="foot-link" style="margin-top:20px;"><a id="portalSignOut">Sign out</a></p>`;
+
+  document.getElementById('portalSignOut')?.addEventListener('click', () => {
+    portalSignedIn = false;
+    renderPortal();
+  });
+}
+
+/* After all page logic is defined, if the user just returned from a
+   successful Stripe payment, wait for verification to finish, then
+   drop them straight into the signed-in portal. */
+if (window.__pendingVerification) {
+  window.__pendingVerification.then(() => {
+    if (window.__stripeReturned) {
+      navigateTo('portal');
+      portalSignedIn = true;
+      portalEmail = window.__verifiedEmail || '';
+      renderPortal();
+    }
+  });
+}
+
+</script>
+
+</body>
+</html>
