@@ -238,7 +238,10 @@
     <a data-nav="assessment">Sample Assessment</a>
     <a data-nav="home" data-anchor="tuition">Tuition</a>
   </div>
-  <button class="apply-btn" id="navEnrollBtn" data-nav="home" data-anchor="tuition">Enroll Now</button>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button class="btn-outline" id="navSignInBtn" data-nav="portal" style="padding:11px 18px;font-size:0.78rem;letter-spacing:0.8px;color:var(--paper);border-color:rgba(255,255,255,0.4);">Sign In</button>
+    <button class="apply-btn" id="navEnrollBtn" data-nav="home" data-anchor="tuition">Enroll Now</button>
+  </div>
 </nav>
 
 <!-- ============ HOME PAGE ============ -->
@@ -1134,13 +1137,16 @@ let portalEmail = '';
 function updateAuthUI() {
   const authArea = document.getElementById('authStatusArea');
   const navBtn = document.getElementById('navEnrollBtn');
+  const signInBtn = document.getElementById('navSignInBtn');
   const hasAnyAccess = enrollment.full || enrollment.singles.length > 0;
 
   if (portalSignedIn) {
     authArea.innerHTML = `Signed in as ${portalEmail} · <a id="navSignOut" style="cursor:pointer;text-decoration:underline;">Sign Out</a>`;
     document.getElementById('navSignOut').addEventListener('click', signOut);
+    signInBtn.style.display = 'none';
   } else {
     authArea.textContent = 'Not signed in';
+    signInBtn.style.display = 'inline-block';
   }
 
   if (portalSignedIn && hasAnyAccess) {
