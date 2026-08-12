@@ -211,7 +211,10 @@
 
 <div class="utility-bar">
   <div class="utility-links"><a data-nav="portal">Student Portal</a><a data-nav="catalog">Catalog</a><a data-nav="contact">Contact Registrar</a></div>
-  <div>NCSBN-Aligned Curriculum</div>
+  <div style="display:flex;align-items:center;gap:20px;">
+    <span id="authStatusArea" style="opacity:0.85;">Not signed in</span>
+    <span>NCSBN-Aligned Curriculum</span>
+  </div>
 </div>
 
 <nav>
@@ -228,7 +231,7 @@
     <a data-nav="assessment">Sample Assessment</a>
     <a data-nav="home" data-anchor="tuition">Tuition</a>
   </div>
-  <button class="apply-btn" data-nav="home" data-anchor="tuition">Enroll Now</button>
+  <button class="apply-btn" id="navEnrollBtn" data-nav="home" data-anchor="tuition">Enroll Now</button>
 </nav>
 
 <!-- ============ HOME PAGE ============ -->
@@ -364,7 +367,7 @@
         <div class="tuition-price">$247</div>
         <p class="tuition-desc">All fourteen departments, with new items added each term.</p>
         <ul class="tfeat"><li>All 14 departments · 140+ items</li><li>Weekly new items</li><li>Weak-area drill placement</li><li>Private cohort access</li></ul>
-        <button class="btn-gold" style="width:100%;" data-nav="checkout" data-plan="full">Enroll in Full Program</button>
+        <button class="btn-gold" id="fullProgramBtn" style="width:100%;" data-nav="checkout" data-plan="full">Enroll in Full Program</button>
       </div>
     </div>
   </section>
@@ -1063,6 +1066,58 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
 let portalSignedIn = false;
 let portalEmail = '';
 
+/* Keeps the nav's "Enroll Now" button and the utility-bar account
+   indicator in sync with actual sign-in/enrollment state, so a signed-in,
+   fully-enrolled student never sees a stale "please enroll" prompt. */
+function updateAuthUI() {
+  const authArea = document.getElementById('authStatusArea');
+  const navBtn = document.getElementById('navEnrollBtn');
+  const hasAnyAccess = enrollment.full || enrollment.singles.length > 0;
+
+  if (portalSignedIn) {
+    authArea.innerHTML = `Signed in as ${portalEmail} · <a id="navSignOut" style="cursor:pointer;text-decoration:underline;">Sign Out</a>`;
+    document.getElementById('navSignOut').addEventListener('click', signOut);
+  } else {
+    authArea.textContent = 'Not signed in';
+  }
+
+  if (portalSignedIn && hasAnyAccess) {
+    navBtn.textContent = 'My Portal';
+    navBtn.dataset.nav = 'portal';
+    navBtn.dataset.anchor = '';
+  } else {
+    navBtn.textContent = 'Enroll Now';
+    navBtn.dataset.nav = 'home';
+    navBtn.dataset.anchor = 'tuition';
+  }
+
+  updateTuitionCards();
+}
+
+/* On the homepage tuition section: once a student already has full
+   access, the "Enroll in Full Program" button doesn't make sense to
+   show as an active purchase prompt anymore. */
+function updateTuitionCards() {
+  const fullBtn = document.getElementById('fullProgramBtn');
+  if (!fullBtn) return;
+  if (enrollment.full) {
+    fullBtn.textContent = '✓ Enrolled — Go to Portal';
+    fullBtn.dataset.nav = 'portal';
+    fullBtn.dataset.plan = '';
+  } else {
+    fullBtn.textContent = 'Enroll in Full Program';
+    fullBtn.dataset.nav = 'checkout';
+    fullBtn.dataset.plan = 'full';
+  }
+}
+
+function signOut() {
+  portalSignedIn = false;
+  portalEmail = '';
+  updateAuthUI();
+  navigateTo('home');
+}
+
 async function attemptSignIn(email, password, errorEl) {
   try {
     const res = await fetch(`${API_BASE}/api/login`, {
@@ -1079,6 +1134,7 @@ async function attemptSignIn(email, password, errorEl) {
     enrollment.full = enrollment.full || data.full;
     data.singles.forEach(code => { if (!enrollment.singles.includes(code)) enrollment.singles.push(code); });
     portalSignedIn = true;
+    updateAuthUI();
     renderPortal();
   } catch (err) {
     if (errorEl) { errorEl.textContent = `Couldn't reach the backend — is server.js running at ${API_BASE}?`; errorEl.style.display = 'block'; }
@@ -1132,10 +1188,7 @@ function renderPortal() {
     `}
     <p class="foot-link" style="margin-top:20px;"><a id="portalSignOut">Sign out</a></p>`;
 
-  document.getElementById('portalSignOut')?.addEventListener('click', () => {
-    portalSignedIn = false;
-    renderPortal();
-  });
+  document.getElementById('portalSignOut')?.addEventListener('click', signOut);
 }
 
 /* After all page logic is defined, if the user just returned from a
@@ -1147,10 +1200,15 @@ if (window.__pendingVerification) {
       navigateTo('portal');
       portalSignedIn = true;
       portalEmail = window.__verifiedEmail || '';
+      updateAuthUI();
       renderPortal();
     }
   });
 }
+
+/* Set the correct nav state immediately on page load too, in case this
+   run doesn't involve a Stripe return at all. */
+updateAuthUI();
 
 </script>
 
