@@ -138,8 +138,8 @@ async function verifyLogin(email, password) {
 
 /* ---- PRICE IDS — replace with your real Stripe Price IDs ---- */
 const PRICES = {
-  full: 'price_1U1IycCbo2Erb0YsBBwkemlS',
-  single: 'price_1U1IzpCbo2Erb0Yst7NOp0S4' // same $27 price, reused for every department
+  full: 'price_REPLACE_WITH_FULL_PROGRAM_PRICE_ID',
+  single: 'price_REPLACE_WITH_SINGLE_DEPARTMENT_PRICE_ID' // same $27 price, reused for every department
 };
 
 const VALID_CODES = new Set([
@@ -260,6 +260,40 @@ app.post('/api/login', async (req, res) => {
   if (!user) return res.status(401).json({ success: false, error: 'Incorrect email or password' });
 
   res.json({ success: true, full: user.full, singles: user.singles });
+});
+
+/* Sends a real email for the "Contact the Registrar" form via Resend.
+   REGISTRAR_EMAIL is where messages land; set it in your environment. */
+app.post('/api/contact', async (req, res) => {
+  const { name, email, message } = req.body;
+  if (!name || !email || !message) {
+    return res.status(400).json({ success: false, error: 'name, email, and message are required' });
+  }
+  try {
+    const resendRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'Student to Nurse <onboarding@resend.dev>',
+        to: [process.env.REGISTRAR_EMAIL],
+        reply_to: email,
+        subject: `Registrar message from ${name}`,
+        text: `From: ${name} <${email}>\n\n${message}`
+      })
+    });
+    if (!resendRes.ok) {
+      const errText = await resendRes.text();
+      console.error('Resend error:', errText);
+      return res.status(502).json({ success: false, error: 'Email service error' });
+    }
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error sending contact email:', err.message);
+    res.status(500).json({ success: false, error: 'Could not send message' });
+  }
 });
 
 initDB()

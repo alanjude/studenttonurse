@@ -487,8 +487,9 @@
       <label>Email</label><input type="email" required>
       <label>Message</label><textarea required style="min-height:120px;"></textarea>
       <button type="submit" class="btn-gold" style="margin-top:24px;">Send Message</button>
+      <p id="contactError" style="display:none;color:var(--required);font-size:0.85rem;margin-top:14px;"></p>
     </form>
-    <p id="contactSent" style="display:none;color:var(--navy);font-weight:600;margin-top:16px;">Message sent — this is a demo form, so no message was actually delivered.</p>
+    <p id="contactSent" style="display:none;color:var(--navy);font-weight:600;margin-top:16px;">Message sent — the registrar will reply within one business day.</p>
   </div>
 </div>
 
@@ -1220,11 +1221,33 @@ document.querySelectorAll('[data-nav="assessment"]').forEach(el => el.addEventLi
 }));
 renderSampleQuestion(0);
 
-/* ---------------- CONTACT / PORTAL STUB FORMS ---------------- */
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+/* ---------------- CONTACT FORM ---------------- */
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  e.target.style.display = 'none';
-  document.getElementById('contactSent').style.display = 'block';
+  const form = e.target;
+  const [nameInput, emailInput] = form.querySelectorAll('input');
+  const messageInput = form.querySelector('textarea');
+  const errorEl = document.getElementById('contactError');
+  const btn = form.querySelector('button[type=submit]');
+  errorEl.style.display = 'none';
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(`${API_BASE}/api/contact`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: nameInput.value, email: emailInput.value, message: messageInput.value })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Could not send message');
+    form.style.display = 'none';
+    document.getElementById('contactSent').style.display = 'block';
+  } catch (err) {
+    errorEl.textContent = `Couldn't send: ${err.message}. Try again, or the backend may be asleep — wait a moment and retry.`;
+    errorEl.style.display = 'block';
+    btn.textContent = 'Send Message';
+    btn.disabled = false;
+  }
 });
 let portalSignedIn = false;
 let portalEmail = '';
