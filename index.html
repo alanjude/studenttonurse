@@ -1114,6 +1114,10 @@ function updateTuitionCards() {
 function signOut() {
   portalSignedIn = false;
   portalEmail = '';
+  // Clearing this is what actually re-locks content — the browser
+  // shouldn't keep "remembering" access after the user has signed out.
+  // The real entitlement is safe server-side and comes back on next login.
+  enrollment = { full: false, singles: [] };
   updateAuthUI();
   navigateTo('home');
 }
