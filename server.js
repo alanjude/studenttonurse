@@ -75,9 +75,17 @@ function hashPassword(password, salt) {
   return crypto.scryptSync(password, salt, 64).toString('hex');
 }
 
+/* Every email is normalized here before touching the database, so
+   "User@Example.com" at checkout and "user@example.com" at login
+   are always treated as the same account. */
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
 /* Called when someone starts checkout. Creates the account (unpaid)
    if it doesn't exist yet; leaves it alone if it does. */
 async function createOrGetUser(email, password) {
+  email = normalizeEmail(email);
   const existing = await pool.query('SELECT 1 FROM users WHERE email = $1', [email]);
   if (existing.rows.length === 0) {
     const salt = crypto.randomBytes(16).toString('hex');
@@ -91,6 +99,7 @@ async function createOrGetUser(email, password) {
 
 /* Called when a webhook or verified session confirms real payment. */
 async function grantEntitlement(email, plan, code) {
+  email = normalizeEmail(email);
   const existing = await pool.query('SELECT 1 FROM users WHERE email = $1', [email]);
   if (existing.rows.length === 0) {
     // Shouldn't normally happen (account is created at checkout time),
@@ -117,6 +126,7 @@ async function grantEntitlement(email, plan, code) {
 
 /* Verifies email + password, timing-safe. Returns { full, singles } or null. */
 async function verifyLogin(email, password) {
+  email = normalizeEmail(email);
   const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
   if (result.rows.length === 0) return null;
   const user = result.rows[0];
@@ -128,8 +138,8 @@ async function verifyLogin(email, password) {
 
 /* ---- PRICE IDS — replace with your real Stripe Price IDs ---- */
 const PRICES = {
-  full: 'price_1U1IycCbo2Erb0YsBBwkemlS',
-  single: 'price_1U1IzpCbo2Erb0Yst7NOp0S4' // same $27 price, reused for every department
+  full: 'price_REPLACE_WITH_FULL_PROGRAM_PRICE_ID',
+  single: 'price_REPLACE_WITH_SINGLE_DEPARTMENT_PRICE_ID' // same $27 price, reused for every department
 };
 
 const VALID_CODES = new Set([
