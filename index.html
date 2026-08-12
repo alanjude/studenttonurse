@@ -447,6 +447,9 @@
         <p style="color:var(--ink-dim);font-size:0.9rem;line-height:1.6;">Payment is handled securely by Stripe. Enter your email, then continue to Stripe's hosted checkout to enter card details.</p>
         <label>Email Address</label>
         <input type="email" id="checkoutEmail" placeholder="you@school.edu" required>
+        <label>Create a Password</label>
+        <input type="password" id="checkoutPassword" placeholder="At least 8 characters" required minlength="8">
+        <p style="font-size:0.78rem;color:var(--ink-dim);margin-top:6px;">You'll use this to sign into the Student Portal after payment.</p>
         <button class="btn-gold pay-btn" id="stripeBtn">Continue to Secure Payment →</button>
         <div class="stripe-badge">🔒 Payments processed by Stripe — card details never touch this site.</div>
         <div class="dev-warning" id="devWarning">⚠ <strong>Developer note:</strong> this page creates a real Stripe Checkout Session by calling your backend (server.js). Make sure it's running — see the setup instructions.</div>
@@ -922,7 +925,15 @@ function renderCheckout(plan, code, name) {
   }
   document.getElementById('stripeBtn').onclick = async () => {
     const email = document.getElementById('checkoutEmail').value;
+    const password = document.getElementById('checkoutPassword').value;
     if (!email) { document.getElementById('checkoutEmail').focus(); return; }
+    if (!password || password.length < 8) {
+      document.getElementById('checkoutPassword').focus();
+      const w = document.getElementById('devWarning');
+      w.innerHTML = '⚠ Password must be at least 8 characters.';
+      w.classList.add('show');
+      return;
+    }
     const btn = document.getElementById('stripeBtn');
     const originalText = btn.textContent;
     btn.textContent = 'Connecting to Stripe…';
@@ -932,16 +943,18 @@ function renderCheckout(plan, code, name) {
       const res = await fetch(`${API_BASE}/api/create-checkout-session`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, code, email })
+        body: JSON.stringify({ plan, code, email, password })
       });
-      if (!res.ok) throw new Error('Backend returned an error');
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Backend returned an error');
       window.location.href = data.url; // real Stripe-hosted Checkout page
     } catch (err) {
       btn.textContent = originalText;
       btn.disabled = false;
       const w = document.getElementById('devWarning');
-      w.innerHTML = `⚠ <strong>Couldn't reach the payment backend.</strong> This site expects server.js running at <code>${API_BASE}</code> to create the Stripe session. See the setup instructions to start it.`;
+      w.innerHTML = `⚠ ${err.message.includes('backend') || err.message === 'Failed to fetch'
+        ? `<strong>Couldn't reach the payment backend.</strong> Make sure server.js is running at <code>${API_BASE}</code>.`
+        : `<strong>${err.message}</strong>`}`;
       w.classList.add('show');
     }
   };
@@ -1050,32 +1063,37 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
 let portalSignedIn = false;
 let portalEmail = '';
 
-async function signInAndLoadEntitlements(email) {
-  portalEmail = email;
-  // NOTE: this only checks *what the email is entitled to* — it does not
-  // verify a password against anything, because there's no real user
-  // database here yet. Real accounts need actual credential checking on
-  // the backend; this is enough to demo entitlements flowing from a real
-  // Stripe payment through to the portal.
+async function attemptSignIn(email, password, errorEl) {
   try {
-    const res = await fetch(`${API_BASE}/api/entitlements?email=${encodeURIComponent(email)}`);
-    if (res.ok) {
-      const data = await res.json();
-      enrollment.full = enrollment.full || data.full;
-      data.singles.forEach(code => { if (!enrollment.singles.includes(code)) enrollment.singles.push(code); });
+    const res = await fetch(`${API_BASE}/api/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      if (errorEl) { errorEl.textContent = data.error || 'Incorrect email or password.'; errorEl.style.display = 'block'; }
+      return;
     }
+    portalEmail = email;
+    enrollment.full = enrollment.full || data.full;
+    data.singles.forEach(code => { if (!enrollment.singles.includes(code)) enrollment.singles.push(code); });
+    portalSignedIn = true;
+    renderPortal();
   } catch (err) {
-    console.warn('Could not reach backend for entitlements — is server.js running?');
+    if (errorEl) { errorEl.textContent = `Couldn't reach the backend — is server.js running at ${API_BASE}?`; errorEl.style.display = 'block'; }
   }
-  portalSignedIn = true;
-  renderPortal();
 }
 
-document.getElementById('portalForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = e.target.querySelector('input[type=email]').value;
-  signInAndLoadEntitlements(email);
-});
+function wireSignInForm(form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = form.querySelector('input[type=email]').value;
+    const password = form.querySelector('input[type=password]').value;
+    const errorEl = form.querySelector('.login-error');
+    attemptSignIn(email, password, errorEl);
+  });
+}
 
 function renderPortal() {
   const card = document.getElementById('portalCardInner');
@@ -1086,14 +1104,11 @@ function renderPortal() {
       <form id="portalForm">
         <label>Email</label><input type="email" required>
         <label>Password</label><input type="password" required>
+        <p class="login-error" style="display:none;color:var(--required);font-size:0.82rem;margin-top:10px;"></p>
         <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Sign In</button>
       </form>
       <p class="foot-link">Not enrolled yet? <a data-nav="home" data-anchor="tuition">View tuition options</a></p>`;
-    document.getElementById('portalForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = e.target.querySelector('input[type=email]').value;
-      signInAndLoadEntitlements(email);
-    });
+    wireSignInForm(document.getElementById('portalForm'));
     return;
   }
 
