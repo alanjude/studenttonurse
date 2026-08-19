@@ -65,9 +65,15 @@ async function initDB() {
       salt TEXT NOT NULL,
       hash TEXT NOT NULL,
       full_access BOOLEAN NOT NULL DEFAULT false,
-      singles JSONB NOT NULL DEFAULT '[]'
+      singles JSONB NOT NULL DEFAULT '[]',
+      reset_token TEXT,
+      reset_token_expires BIGINT
     )
   `);
+  // ALTER ... IF NOT EXISTS so this is safe to run against a database that
+  // already has the users table from before reset tokens were added.
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS reset_token TEXT`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS reset_token_expires BIGINT`);
 }
 
 /* Passwords are never stored in plain text — only a salted hash. */
@@ -125,6 +131,15 @@ async function grantEntitlement(email, plan, code) {
 }
 
 /* Verifies email + password, timing-safe. Returns { full, singles } or null. */
+/* Looks up what an email already owns, without requiring a password —
+   used only to block re-purchasing something already owned. Does not
+   reveal anything sensitive; the person already knows their own email. */
+async function lookupEntitlementsByEmail(email) {
+  const result = await pool.query('SELECT full_access, singles FROM users WHERE email = $1', [normalizeEmail(email)]);
+  if (result.rows.length === 0) return { full: false, singles: [] };
+  return { full: result.rows[0].full_access, singles: result.rows[0].singles };
+}
+
 async function verifyLogin(email, password) {
   email = normalizeEmail(email);
   const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
@@ -136,10 +151,40 @@ async function verifyLogin(email, password) {
   return { full: user.full_access, singles: user.singles };
 }
 
+/* Generates a one-time reset token valid for 1 hour, only for an email
+   that actually has an account. Returns null if no account exists. */
+async function createPasswordResetToken(email) {
+  email = normalizeEmail(email);
+  const existing = await pool.query('SELECT 1 FROM users WHERE email = $1', [email]);
+  if (existing.rows.length === 0) return null;
+  const token = crypto.randomBytes(32).toString('hex');
+  const expires = Date.now() + 60 * 60 * 1000; // 1 hour
+  await pool.query('UPDATE users SET reset_token = $1, reset_token_expires = $2 WHERE email = $3', [token, expires, email]);
+  return token;
+}
+
+/* Consumes a reset token: verifies it's valid and unexpired, sets the new
+   password, and invalidates the token so it can't be reused. */
+async function resetPasswordWithToken(token, newPassword) {
+  const result = await pool.query('SELECT email, reset_token_expires FROM users WHERE reset_token = $1', [token]);
+  if (result.rows.length === 0) return { success: false, error: 'This reset link is invalid.' };
+  const { email, reset_token_expires } = result.rows[0];
+  if (!reset_token_expires || Date.now() > Number(reset_token_expires)) {
+    return { success: false, error: 'This reset link has expired. Request a new one.' };
+  }
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = hashPassword(newPassword, salt);
+  await pool.query(
+    'UPDATE users SET salt = $1, hash = $2, reset_token = NULL, reset_token_expires = NULL WHERE email = $3',
+    [salt, hash, email]
+  );
+  return { success: true };
+}
+
 /* ---- PRICE IDS — replace with your real Stripe Price IDs ---- */
 const PRICES = {
-  full: 'price_1U5zlLE8y8daeuD6MX32Ttmp',
-  single: 'price_1U5zmpE8y8daeuD6i1tIavaM' // same $27 price, reused for every department
+  full: 'price_REPLACE_WITH_FULL_PROGRAM_PRICE_ID',
+  single: 'price_REPLACE_WITH_SINGLE_DEPARTMENT_PRICE_ID' // same $27 price, reused for every department
 };
 
 const VALID_CODES = new Set([
@@ -198,6 +243,16 @@ app.post('/api/create-checkout-session', async (req, res) => {
     }
     if (!email || !password || password.length < 8) {
       return res.status(400).json({ error: 'email and an 8+ character password are required' });
+    }
+
+    // Block re-purchasing something this email already owns — prevents
+    // accidentally charging a returning customer twice.
+    const existing = await lookupEntitlementsByEmail(email);
+    if (existing.full) {
+      return res.status(409).json({ error: 'already_full', message: 'This email already has Full Program access. Sign in to the portal instead.' });
+    }
+    if (plan === 'single' && existing.singles.includes(code)) {
+      return res.status(409).json({ error: 'already_owns_department', message: 'This email already owns this department. Sign in to the portal instead.' });
     }
 
     // Create the account now (unpaid) so the password is set even if the
@@ -260,6 +315,52 @@ app.post('/api/login', async (req, res) => {
   if (!user) return res.status(401).json({ success: false, error: 'Incorrect email or password' });
 
   res.json({ success: true, full: user.full, singles: user.singles });
+});
+
+/* Sends a real password reset email via Resend. Always responds success
+   regardless of whether the account exists — this prevents the endpoint
+   from being used to check which emails have accounts on the site. */
+app.post('/api/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ success: false, error: 'email required' });
+
+  try {
+    const token = await createPasswordResetToken(email);
+    if (token) {
+      const resetUrl = `${FRONTEND_URL}/?reset_token=${token}`;
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'Student to Nurse <onboarding@resend.dev>',
+          to: [normalizeEmail(email)],
+          subject: 'Reset your Student to Nurse password',
+          text: `Click the link below to set a new password. This link expires in 1 hour.\n\n${resetUrl}\n\nIf you didn't request this, you can ignore this email.`
+        })
+      });
+      if (!resendRes.ok) console.error('Resend error (forgot-password):', await resendRes.text());
+    }
+  } catch (err) {
+    console.error('Error in forgot-password:', err.message);
+    // Still fall through to the generic success response below —
+    // never reveal server-side details to the client here.
+  }
+
+  res.json({ success: true, message: 'If an account exists for that email, a reset link has been sent.' });
+});
+
+/* Consumes a reset token and sets a new password. */
+app.post('/api/reset-password', async (req, res) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword || newPassword.length < 8) {
+    return res.status(400).json({ success: false, error: 'A reset token and an 8+ character new password are required' });
+  }
+  const result = await resetPasswordWithToken(token, newPassword);
+  if (!result.success) return res.status(400).json(result);
+  res.json({ success: true });
 });
 
 /* Sends a real email for the "Contact the Registrar" form via Resend.
