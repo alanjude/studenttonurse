@@ -1419,7 +1419,9 @@ function wireSignInForm(form) {
     const errorEl = form.querySelector('.login-error');
     attemptSignIn(email, password, errorEl);
   });
-  form.querySelector('.forgot-link')?.addEventListener('click', () => {
+  // .forgot-link is a sibling of <form>, not a descendant — must search
+  // from the shared parent container, not from `form` itself.
+  document.getElementById('portalCardInner').querySelector('.forgot-link')?.addEventListener('click', () => {
     portalView = 'forgot';
     renderPortal();
   });
