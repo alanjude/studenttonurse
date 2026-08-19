@@ -138,8 +138,8 @@ async function verifyLogin(email, password) {
 
 /* ---- PRICE IDS — replace with your real Stripe Price IDs ---- */
 const PRICES = {
-  full: 'price_1U1IycCbo2Erb0YsBBwkemlS',
-  single: 'price_1U1IzpCbo2Erb0Yst7NOp0S4' // same $27 price, reused for every department
+  full: 'price_1U5zlLE8y8daeuD6MX32Ttmp',
+  single: 'price_1U5zmpE8y8daeuD6i1tIavaM' // same $27 price, reused for every department
 };
 
 const VALID_CODES = new Set([
