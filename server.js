@@ -183,8 +183,8 @@ async function resetPasswordWithToken(token, newPassword) {
 
 /* ---- PRICE IDS — replace with your real Stripe Price IDs ---- */
 const PRICES = {
-  full: 'price_REPLACE_WITH_FULL_PROGRAM_PRICE_ID',
-  single: 'price_REPLACE_WITH_SINGLE_DEPARTMENT_PRICE_ID' // same $27 price, reused for every department
+  full: 'price_1U5zlLE8y8daeuD6MX32Ttmp',
+  single: 'price_1U5zmpE8y8daeuD6i1tIavaM' // same $27 price, reused for every department
 };
 
 const VALID_CODES = new Set([
