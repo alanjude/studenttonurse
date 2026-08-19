@@ -20,7 +20,14 @@
   .page{display:none;}
   .page.active{display:block;}
 
-  .utility-bar{background:var(--navy-2);color:var(--gold-light);font-size:0.72rem;padding:8px 6vw;display:flex;justify-content:space-between;}
+  .utility-bar{background:var(--navy-2);color:var(--gold-light);font-size:0.72rem;padding:8px 6vw;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;}
+  @media (max-width:640px){
+    .utility-bar{font-size:0.68rem;}
+    .utility-bar > div:last-child{width:100%;order:3;font-size:0.62rem;opacity:0.8;}
+    #authStatusArea{display:flex;align-items:center;gap:4px;flex:1;min-width:0;}
+    #authEmailText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+    .utility-bar > div:last-child > span:last-child{flex-shrink:0;}
+  }
   .utility-links{display:flex;gap:24px;}
   .utility-links a{cursor:pointer;opacity:0.85;}
   .utility-links a:hover{opacity:1;}
@@ -32,11 +39,33 @@
   .nav-links a{color:var(--parchment);font-size:0.82rem;font-weight:500;cursor:pointer;}
   .nav-links a:hover{color:var(--gold-light);}
   .apply-btn{background:var(--gold);color:var(--navy-2);padding:11px 22px;font-size:0.78rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;border:none;}
-  @media (max-width:900px){.nav-links{display:none;}}
+  @media (max-width:900px){
+    .nav-links{display:none;}
+    #navSignInBtn{display:none;}
+    .nav-hamburger{display:flex;}
+  }
+  .nav-hamburger{display:none;width:30px;height:22px;position:relative;background:none;border:none;cursor:pointer;padding:0;flex-direction:column;justify-content:space-between;}
+  .nav-hamburger span{display:block;width:100%;height:2.5px;background:var(--paper);border-radius:2px;transition:transform 0.2s,opacity 0.2s;}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(9.5px) rotate(45deg);}
+  .nav-hamburger.open span:nth-child(2){opacity:0;}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-9.5px) rotate(-45deg);}
+  .mobile-menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:98;opacity:0;pointer-events:none;transition:opacity 0.2s;}
+  .mobile-menu-overlay.open{opacity:1;pointer-events:auto;}
+  .mobile-menu{position:fixed;top:0;right:-88%;width:82%;max-width:340px;height:100%;background:var(--navy);z-index:99;padding:100px 28px 28px;box-shadow:-10px 0 30px rgba(0,0,0,0.35);transition:right 0.25s ease;overflow-y:auto;}
+  .mobile-menu.open{right:0;}
+  .mobile-menu a,.mobile-menu button.mobile-menu-item{display:block;width:100%;text-align:left;background:none;border:none;border-bottom:1px solid rgba(255,255,255,0.12);color:var(--parchment);font-size:1.05rem;font-family:'Inter',sans-serif;font-weight:500;padding:18px 0;cursor:pointer;}
+  .mobile-menu .cap{color:var(--gold-light);margin:22px 0 4px;display:block;}
+  .mobile-menu .cap:first-child{margin-top:0;}
 
   .hero{background:linear-gradient(180deg,var(--navy) 0%, var(--navy-3) 100%);color:var(--paper);padding:80px 6vw 60px;position:relative;overflow:hidden;}
   .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg, rgba(199,162,83,0.05) 0px, rgba(199,162,83,0.05) 1px, transparent 1px, transparent 42px);pointer-events:none;}
   .hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.3fr 0.9fr;gap:56px;align-items:center;position:relative;}
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr;gap:36px;text-align:center;}
+    .hero-desc{margin-left:auto;margin-right:auto;}
+    .hero-ctas{justify-content:center;}
+    .seal-wrap svg{width:200px;height:200px;}
+  }
   .hero-eyebrow{color:var(--gold-light);margin-bottom:18px;}
   h1.hero-title{font-size:clamp(2.1rem,4.2vw,3.3rem);line-height:1.16;font-weight:600;margin-bottom:22px;}
   h1.hero-title em{font-style:italic;color:var(--gold-light);}
@@ -65,6 +94,11 @@
 
   .catalog{border:1px solid var(--line);}
   .catalog-row{display:grid;grid-template-columns:110px 1fr 140px 20px;gap:20px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);cursor:pointer;}
+  @media (max-width:600px){
+    .catalog-row{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:18px 20px;}
+    .catalog-row .course-code{font-size:0.72rem;}
+    .catalog-row .course-credits,.catalog-row .arrow{display:none;}
+  }
   .catalog-row:hover{background:var(--gold-light)!important;}
   .catalog-row:last-child{border-bottom:none;}
   .catalog-row:nth-child(odd){background:var(--parchment);}
@@ -87,7 +121,7 @@
   .testimonial-grid p{font-family:'EB Garamond',serif;font-style:italic;font-size:1.05rem;line-height:1.5;margin:0 0 10px;}
 
   .assessment{background:var(--navy);color:var(--paper);border:1px solid var(--navy-3);}
-  .assessment-head{padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;justify-content:space-between;align-items:center;}
+  .assessment-head{padding:18px 28px;border-bottom:1px solid rgba(255,255,255,0.15);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
   .assessment-head .cap{color:var(--gold-light);}
   .assessment-body{padding:30px 28px;}
   .assess-stem{font-size:1.05rem;line-height:1.65;margin-bottom:24px;}
@@ -168,7 +202,8 @@
   .dev-warning.show{display:block;}
 
   .portal-wrap{min-height:60vh;display:flex;align-items:center;justify-content:center;background:var(--navy);}
-  .portal-card{background:var(--paper);color:var(--ink);width:380px;padding:40px 34px;border-top:3px solid var(--gold);margin:60px 0;}
+  .portal-card{background:var(--paper);color:var(--ink);width:380px;max-width:90vw;padding:40px 34px;border-top:3px solid var(--gold);margin:60px 0;}
+  @media (max-width:460px){.portal-card{padding:32px 24px;}}
   .portal-card h2{font-size:1.2rem;text-align:center;margin:0 0 22px;}
   .portal-brand{text-align:center;margin-bottom:26px;}
   .portal-brand .big{font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--navy);display:block;}
@@ -241,8 +276,22 @@
   <div style="display:flex;align-items:center;gap:10px;">
     <button class="btn-outline" id="navSignInBtn" data-nav="portal" style="padding:11px 18px;font-size:0.78rem;letter-spacing:0.8px;color:var(--paper);border-color:rgba(255,255,255,0.4);">Sign In</button>
     <button class="apply-btn" id="navEnrollBtn" data-nav="home" data-anchor="tuition">Enroll Now</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a data-nav="catalog">Course Catalog</a>
+  <a data-nav="home" data-anchor="why">Why It Works</a>
+  <a data-nav="assessment">Sample Assessment</a>
+  <a data-nav="home" data-anchor="tuition">Tuition</a>
+  <span class="cap">Account</span>
+  <a data-nav="portal">Student Portal / Sign In</a>
+  <span class="cap">Registrar</span>
+  <a data-nav="catalog">Catalog</a>
+  <a data-nav="contact">Contact Registrar</a>
+</div>
 
 <!-- ============ HOME PAGE ============ -->
 <div class="page active" id="page-home">
@@ -932,7 +981,27 @@ document.addEventListener('click', (e) => {
   if (!el) return;
   e.preventDefault();
   navigateTo(el.dataset.nav, { anchor: el.dataset.anchor, code: el.dataset.code, plan: el.dataset.plan, name: el.dataset.name });
+  if (el.closest('#mobileMenu')) closeMobileMenu();
 });
+
+/* ---------------- MOBILE HAMBURGER MENU ---------------- */
+function openMobileMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('mobileMenuOverlay').classList.add('open');
+  document.getElementById('navHamburger').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileMenuOverlay').classList.remove('open');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('navHamburger').addEventListener('click', () => {
+  const isOpen = document.getElementById('mobileMenu').classList.contains('open');
+  isOpen ? closeMobileMenu() : openMobileMenu();
+});
+document.getElementById('mobileMenuOverlay').addEventListener('click', closeMobileMenu);
 
 /* ---------------- CATALOG RENDERING ---------------- */
 function buildCatalogRow(code, c) {
@@ -1113,15 +1182,23 @@ function renderCheckout(plan, code, name) {
         body: JSON.stringify({ plan, code, email, password })
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Backend returned an error');
+      if (!res.ok) {
+        const err = new Error(data.message || data.error || 'Backend returned an error');
+        err.code = data.error;
+        throw err;
+      }
       window.location.href = data.url; // real Stripe-hosted Checkout page
     } catch (err) {
       btn.textContent = originalText;
       btn.disabled = false;
       const w = document.getElementById('devWarning');
-      w.innerHTML = `⚠ ${err.message.includes('backend') || err.message === 'Failed to fetch'
-        ? `<strong>Couldn't reach the payment backend.</strong> Make sure server.js is running at <code>${API_BASE}</code>.`
-        : `<strong>${err.message}</strong>`}`;
+      if (err.code === 'already_full' || err.code === 'already_owns_department') {
+        w.innerHTML = `⚠ <strong>${err.message}</strong> <a data-nav="portal" style="text-decoration:underline;cursor:pointer;color:inherit;">Sign in here</a>.`;
+      } else {
+        w.innerHTML = `⚠ ${err.message.includes('backend') || err.message === 'Failed to fetch'
+          ? `<strong>Couldn't reach the payment backend.</strong> Make sure server.js is running at <code>${API_BASE}</code>.`
+          : `<strong>${err.message}</strong>`}`;
+      }
       w.classList.add('show');
     }
   };
@@ -1262,7 +1339,7 @@ function updateAuthUI() {
   const hasAnyAccess = enrollment.full || enrollment.singles.length > 0;
 
   if (portalSignedIn) {
-    authArea.innerHTML = `Signed in as ${portalEmail} · <a id="navSignOut" style="cursor:pointer;text-decoration:underline;">Sign Out</a>`;
+    authArea.innerHTML = `Signed in as <span id="authEmailText">${portalEmail}</span> · <a id="navSignOut" style="cursor:pointer;text-decoration:underline;flex-shrink:0;">Sign Out</a>`;
     document.getElementById('navSignOut').addEventListener('click', signOut);
     signInBtn.style.display = 'none';
   } else {
@@ -1342,10 +1419,109 @@ function wireSignInForm(form) {
     const errorEl = form.querySelector('.login-error');
     attemptSignIn(email, password, errorEl);
   });
+  form.querySelector('.forgot-link')?.addEventListener('click', () => {
+    portalView = 'forgot';
+    renderPortal();
+  });
 }
+
+async function submitForgotPassword(email, statusEl) {
+  statusEl.style.display = 'none';
+  try {
+    const res = await fetch(`${API_BASE}/api/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await res.json();
+    statusEl.textContent = data.message || 'If an account exists for that email, a reset link has been sent.';
+    statusEl.style.color = 'var(--navy)';
+    statusEl.style.display = 'block';
+  } catch (err) {
+    statusEl.textContent = `Couldn't reach the backend — is server.js running at ${API_BASE}?`;
+    statusEl.style.color = 'var(--required)';
+    statusEl.style.display = 'block';
+  }
+}
+
+async function submitPasswordReset(token, newPassword, confirmPassword, statusEl) {
+  statusEl.style.display = 'none';
+  if (newPassword.length < 8) {
+    statusEl.textContent = 'Password must be at least 8 characters.';
+    statusEl.style.color = 'var(--required)'; statusEl.style.display = 'block';
+    return;
+  }
+  if (newPassword !== confirmPassword) {
+    statusEl.textContent = "Passwords don't match.";
+    statusEl.style.color = 'var(--required)'; statusEl.style.display = 'block';
+    return;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/api/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, newPassword })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) throw new Error(data.error || 'Could not reset password');
+    portalView = 'signin';
+    window.__resetToken = null;
+    renderPortal();
+    setTimeout(() => {
+      const err = document.querySelector('#portalCardInner .login-error');
+      if (err) { err.textContent = 'Password updated — sign in with your new password.'; err.style.color = 'var(--navy)'; err.style.display = 'block'; }
+    }, 0);
+  } catch (err) {
+    statusEl.textContent = err.message;
+    statusEl.style.color = 'var(--required)'; statusEl.style.display = 'block';
+  }
+}
+
+let portalView = 'signin'; // 'signin' | 'forgot' | 'reset'
 
 function renderPortal() {
   const card = document.getElementById('portalCardInner');
+
+  if (portalView === 'reset' && window.__resetToken) {
+    card.innerHTML = `
+      <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Reset Password</span></div>
+      <h2>Set a New Password</h2>
+      <form id="resetForm">
+        <label>New Password</label><input type="password" required minlength="8">
+        <label>Confirm New Password</label><input type="password" required minlength="8">
+        <p class="login-error" style="display:none;font-size:0.82rem;margin-top:10px;"></p>
+        <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Set New Password</button>
+      </form>`;
+    const form = document.getElementById('resetForm');
+    const statusEl = form.querySelector('.login-error');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const [pw1, pw2] = form.querySelectorAll('input[type=password]');
+      submitPasswordReset(window.__resetToken, pw1.value, pw2.value, statusEl);
+    });
+    return;
+  }
+
+  if (portalView === 'forgot') {
+    card.innerHTML = `
+      <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Reset Password</span></div>
+      <h2>Forgot Password</h2>
+      <p style="color:var(--ink-dim);font-size:0.85rem;line-height:1.5;margin-bottom:6px;">Enter your account email — we'll send a link to set a new password.</p>
+      <form id="forgotForm">
+        <label>Email</label><input type="email" required>
+        <p class="login-error" style="display:none;font-size:0.82rem;margin-top:10px;"></p>
+        <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Send Reset Link</button>
+      </form>
+      <p class="foot-link"><a id="backToSignIn" style="cursor:pointer;">Back to sign in</a></p>`;
+    const form = document.getElementById('forgotForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitForgotPassword(form.querySelector('input[type=email]').value, form.querySelector('.login-error'));
+    });
+    document.getElementById('backToSignIn').addEventListener('click', () => { portalView = 'signin'; renderPortal(); });
+    return;
+  }
+
   if (!portalSignedIn) {
     card.innerHTML = `
       <div class="portal-brand"><span class="big">Student to Nurse</span><span class="small">Student Portal</span></div>
@@ -1356,6 +1532,7 @@ function renderPortal() {
         <p class="login-error" style="display:none;color:var(--required);font-size:0.82rem;margin-top:10px;"></p>
         <button type="submit" class="btn-gold" style="width:100%;margin-top:22px;">Sign In</button>
       </form>
+      <p class="foot-link"><a class="forgot-link" style="cursor:pointer;">Forgot password?</a></p>
       <p class="foot-link">Not enrolled yet? <a data-nav="home" data-anchor="tuition">View tuition options</a></p>`;
     wireSignInForm(document.getElementById('portalForm'));
     return;
@@ -1384,6 +1561,19 @@ function renderPortal() {
   document.getElementById('portalSignOut')?.addEventListener('click', signOut);
 }
 
+/* If the page loaded with ?reset_token=... (from the emailed reset link),
+   go straight to the reset-password screen. */
+(function checkForResetToken() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('reset_token');
+  if (token) {
+    window.__resetToken = token;
+    portalView = 'reset';
+    window.history.replaceState({}, '', window.location.pathname);
+    window.__hasResetTokenOnLoad = true;
+  }
+})();
+
 /* After all page logic is defined, if the user just returned from a
    successful Stripe payment, wait for verification to finish, then
    drop them straight into the signed-in portal. */
@@ -1402,6 +1592,13 @@ if (window.__pendingVerification) {
 /* Set the correct nav state immediately on page load too, in case this
    run doesn't involve a Stripe return at all. */
 updateAuthUI();
+
+/* If we arrived via an emailed password-reset link, jump straight to
+   the reset-password screen instead of the homepage. */
+if (window.__hasResetTokenOnLoad) {
+  navigateTo('portal');
+  renderPortal();
+}
 
 </script>
 
